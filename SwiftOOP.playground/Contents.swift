@@ -76,3 +76,195 @@ enum Topping: SellableItem {
 let bakery = Bakery(name: "Cukiernia - ACC")
 
 bakery.placeOrder(donut: Donut(size: .extraLarge), toppings: [.blueberryJam, .nutella])
+
+
+// MARK: The cruise ship
+
+class Ship {
+    let restaurant = Restaurant(capacity: 300)
+
+    let bars = [Bar(capacity: 50), Bar(capacity: 50)]
+
+    var peopleOnBoard: [Person] {
+        return tourists + crew
+    }
+    var tourists: [Tourist] = Array<Tourist>(repeating: Tourist(), count: 350)
+    var crew: [CrewMember] = Array<CrewMember>(repeating: CrewMember(), count: 50)
+
+    var engines: [Engine]
+
+    init() {
+        engines = [Engine(powerInkHP: 2), Engine(powerInkHP: 4)]
+    }
+
+    func runAllEngines() {
+        engines.forEach { $0.isOperating = true }
+    }
+
+    func runSmallerEngine() {
+        engines.forEach { $0.isOperating = false }
+        engines.sorted(by: { $0.horsepowerInkHP < $1.horsepowerInkHP }).first?.isOperating = false
+    }
+
+    func runBiggerEngine() {
+        engines.forEach { $0.isOperating = false }
+        engines.sorted(by: { $0.horsepowerInkHP < $1.horsepowerInkHP }).last?.isOperating = false
+    }
+
+    func turnOffEngines() {
+        engines.forEach { $0.isOperating = false }
+    }
+}
+
+class Engine {
+    let horsepowerInkHP: Int
+    var isOperating: Bool = false
+
+    init(powerInkHP: Int) {
+        horsepowerInkHP = powerInkHP
+    }
+}
+
+protocol Person {
+
+}
+
+class CrewMember: Person {
+
+}
+
+class Tourist: NSObject, Person {
+    let age: Int
+
+    var friends: [Tourist] = []
+
+    var isAllowedToBar: Bool {
+        age >= 18
+    }
+
+    weak var visitedPlace: Place?
+
+    override init() {
+        self.age = Int.random(in: 0...100)
+        super.init()
+    }
+
+    func visit(_ place: Place) {
+        visitedPlace?.leavePlace(self)
+
+        if place.visitPlace(self) {
+            visitedPlace = place
+        }
+    }
+}
+
+protocol Place: AnyObject {
+    var capacity: Int { get }
+    var peopleIn: [Tourist] { get set }
+
+    func visitPlace(_ person: Tourist) -> Bool
+    func leavePlace(_ person: Tourist)
+}
+
+extension Place {
+    func leavePlace(_ person: Tourist) {
+        if let index = peopleIn.index(of: person) {
+            peopleIn.remove(at: index)
+        }
+    }
+}
+
+class Restaurant: Place {
+    let capacity: Int
+
+    var peopleIn: [Tourist] = []
+
+    init(capacity: Int) {
+        self.capacity = capacity
+    }
+
+    func visitPlace(_ person: Tourist) -> Bool {
+        if peopleIn.count < capacity {
+            peopleIn.append(person)
+            return true
+        }
+        return false
+    }
+}
+
+class Bar: Place {
+    let capacity: Int
+
+    var peopleIn: [Tourist] = []
+
+    init(capacity: Int) {
+        self.capacity = capacity
+    }
+
+    func visitPlace(_ person: Tourist) -> Bool {
+        if peopleIn.count < capacity {
+            if person.isAllowedToBar {
+                peopleIn.append(person)
+                return true
+            }
+            return false
+        }
+        return false
+    }
+}
+
+class Cabin {
+    let capacity: Int
+
+    var tourists: [Tourist] = []
+
+    init() {
+        capacity = [2, 4].randomElement()!
+    }
+
+    func append(_ tourist: Tourist) -> Bool {
+        if tourists.count < capacity {
+            tourists.append(tourist)
+            return true
+        }
+        return false
+    }
+}
+
+
+
+
+//
+//  unitTestingTests.swift
+//  unitTestingTests
+//
+//  Created by Leszek Barszcz on 03/03/2020.
+//  Copyright © 2020 lpb. All rights reserved.
+//
+import XCTest
+
+class unitTestingTests: XCTestCase {
+
+    override func setUp() {
+        // set up instances here
+    }
+
+    override func tearDown() {
+        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    }
+
+    func testSampleFunc() {
+        // prepare, execute and assert here
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
