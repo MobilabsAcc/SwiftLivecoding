@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		20913928241823180080865D /* SwitchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20913927241823180080865D /* SwitchButton.swift */; };
 		20ED3485241180A100827E8A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20ED3484241180A100827E8A /* AppDelegate.swift */; };
 		20ED3487241180A100827E8A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20ED3486241180A100827E8A /* SceneDelegate.swift */; };
 		20ED3489241180A100827E8A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20ED3488241180A100827E8A /* ViewController.swift */; };
@@ -27,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		20913927241823180080865D /* SwitchButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchButton.swift; sourceTree = "<group>"; };
 		20ED3481241180A100827E8A /* mvcSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mvcSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20ED3484241180A100827E8A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		20ED3486241180A100827E8A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -58,6 +60,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		20913926241822400080865D /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				20913927241823180080865D /* SwitchButton.swift */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
 		20ED3478241180A100827E8A = {
 			isa = PBXGroup;
 			children = (
@@ -108,6 +118,7 @@
 		20ED34A72411810000827E8A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				20913926241822400080865D /* Buttons */,
 				20ED348A241180A100827E8A /* Main.storyboard */,
 				20ED348F241180A200827E8A /* LaunchScreen.storyboard */,
 			);
@@ -235,6 +246,7 @@
 				20ED3489241180A100827E8A /* ViewController.swift in Sources */,
 				20ED3485241180A100827E8A /* AppDelegate.swift in Sources */,
 				20ED3487241180A100827E8A /* SceneDelegate.swift in Sources */,
+				20913928241823180080865D /* SwitchButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
