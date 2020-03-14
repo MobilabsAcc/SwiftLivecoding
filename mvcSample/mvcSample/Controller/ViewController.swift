@@ -32,7 +32,6 @@ class ViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        // Here setup everything what depends on actual device size
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -55,5 +54,60 @@ class ViewController: UIViewController {
     @IBAction func unitTapped(_ sender: UIButton) {
         sender.isSelected.toggle()
     }
+    
+    @IBAction func plusTapped(_ sender: UIButton) {
+//        1. Navigate to details page using segue
+//        navigateWithSegue()
+//        2. Navigate to details page using navigation controller
+//        navigateWithNavigationController()
+//        3. Navigate to details page using modal presentation
+//        navigateWithModalPresent()
+        
+    }
+    
+//    Called when we return to this view controller
+    @IBAction func unwindToDashboard(_ unwindSegue: UIStoryboardSegue) {
+                
+        print("we're back")
+    }
+    
+//    Called before each segue is actually performed
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        switch segue.identifier! {
+        case "toDeatails":
+            print("going to details")
+        case "toSettings":
+            print("going to Setting")
+        default:
+            fatalError()
+        }
+        print(String(describing: sender))
+        print(String(describing: segue.identifier))
+    }
+    
+    private func navigateWithSegue() {
+//        We pass in segue identifier which was set in storyboard
+        performSegue(withIdentifier: "toDeatails", sender: nil)
+    }
+    
+    private func navigateWithNavigationController() {
+//        We instantiate the storyboard by passing it's file name to constructor.
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        By having storyboard instance we can instantiate destination view controller
+        let detailsViewController = storyboard.instantiateViewController(identifier: "DetailsViewController")
+//        Pushing new view controller onto navigation stack
+        self.navigationController?.pushViewController(detailsViewController, animated: true)
+    }
+    
+    private func navigateWithModalPresent() {
+//        We instantiate the storyboard by passing it's file name to constructor.
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        By having storyboard instance we can instantiate destination view controller
+        let detailsViewController = storyboard.instantiateViewController(identifier: "DetailsViewController")
+//        We present modaly detailsViewController from current view controller
+        self.present(detailsViewController, animated: true, completion: nil)
+    }
+    
 }
 

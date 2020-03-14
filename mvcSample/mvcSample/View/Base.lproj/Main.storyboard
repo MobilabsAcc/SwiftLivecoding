@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Jas-hJ-Lb3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="U4g-fQ-kyp">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Dashboard-->
         <scene sceneID="bHw-kc-69T">
             <objects>
-                <viewController id="Jas-hJ-Lb3" customClass="ViewController" customModule="mvcSample" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Dashboard" id="Jas-hJ-Lb3" customClass="ViewController" customModule="mvcSample" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="q0z-LQ-Zfb">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -25,7 +25,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EJI-Eb-bjQ">
-                                <rect key="frame" x="112" y="204" width="190.5" height="159"/>
+                                <rect key="frame" x="112" y="248" width="190.5" height="115"/>
                                 <attributedString key="attributedText">
                                     <fragment>
                                         <string key="content">To add your
@@ -70,6 +70,9 @@ first location
                                         <state key="normal" title="+">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="plusTapped:" destination="Jas-hJ-Lb3" eventType="touchUpInside" id="gws-9a-h2Q"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.33333333333333331" green="0.61568627450980395" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -97,10 +100,67 @@ first location
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="yrG-d8-0ry"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Dashboard" id="f2a-qg-weL"/>
+                    <connections>
+                        <segue destination="PlW-vU-VTx" kind="show" identifier="toDeatails" id="uXe-87-JFl"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y2F-gt-jKY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="131.25" y="103.52112676056338"/>
+            <point key="canvasLocation" x="2420" y="102"/>
+        </scene>
+        <!--Detail-->
+        <scene sceneID="Q2Y-qV-5kI">
+            <objects>
+                <viewController storyboardIdentifier="DetailsViewController" id="PlW-vU-VTx" customClass="DetailsViewController" customModule="mvcSample" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="S6h-ud-c3h">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Xy-ZG-R5R">
+                                <rect key="frame" x="154" y="433" width="107" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Pop to previous"/>
+                                <connections>
+                                    <action selector="popTapped:" destination="PlW-vU-VTx" eventType="touchUpInside" id="l1R-dp-zZo"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wDf-eA-Pt9">
+                                <rect key="frame" x="181" y="495" width="52" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Unwind"/>
+                                <connections>
+                                    <segue destination="hJN-lQ-J0T" kind="unwind" unwindAction="unwindToDashboard:" id="2Mn-Lj-ei0"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="4Ea-qe-aUp"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Detail" id="Frj-LD-cxA"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6Ks-S3-Rup" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="hJN-lQ-J0T" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="3326.0869565217395" y="101.78571428571428"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="ZPK-0R-Dvl">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="U4g-fQ-kyp" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Q9o-tA-6TP">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Jas-hJ-Lb3" kind="relationship" relationship="rootViewController" id="4K2-bP-SDw"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3r7-b8-gFH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1456.521739130435" y="101.78571428571428"/>
         </scene>
     </scenes>
     <resources>
