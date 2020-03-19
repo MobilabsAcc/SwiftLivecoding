@@ -10,6 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var bottomBar: UIView!
     override func loadView() {
         super.loadView()
 
@@ -28,6 +29,34 @@ class ViewController: UIViewController {
         gradientLayer.endPoint = CGPoint(x: 0, y: 1)
         gradientLayer.frame = view.bounds
         view.layer.insertSublayer(gradientLayer, at: 0)
+        
+        let mask = CAShapeLayer()
+             
+         mask.frame = bottomBar.bounds
+         mask.fillColor = UIColor.black.cgColor
+         mask.fillRule = .evenOdd
+         let path = UIBezierPath(rect: bottomBar.bounds)
+         
+         let amplitude: CGFloat = 0.1
+         
+         let width = bottomBar.frame.width
+         let height = bottomBar.frame.height
+         let origin = CGPoint(x: 0, y: height / 2)
+         path.move(to: origin)
+         for angle in stride(from: 0, through: 360.0, by: 5.0) {
+             let x = origin.x + CGFloat(angle/360.0) * width
+             let y = origin.y - CGFloat(sin(angle/180.0 * Double.pi)) * height * amplitude
+             path.addLine(to: CGPoint(x: x, y: y))
+         }
+         
+         path.addLine(to: CGPoint(x: bottomBar.frame.width, y: 0))
+         path.addLine(to: CGPoint.zero)
+         
+         path.close()
+         
+         mask.path = path.cgPath
+         
+         bottomBar.layer.mask = mask
     }
 
     override func viewWillAppear(_ animated: Bool) {

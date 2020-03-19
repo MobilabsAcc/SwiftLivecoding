@@ -53,10 +53,10 @@ first location
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SwI-TT-mkw">
-                                <rect key="frame" x="0.0" y="782" width="414" height="114"/>
+                                <rect key="frame" x="0.0" y="696" width="414" height="200"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kJK-EA-kUo" customClass="SwitchButton" customModule="mvcSample" customModuleProvider="target">
-                                        <rect key="frame" x="48" y="32" width="53" height="34"/>
+                                        <rect key="frame" x="48" y="118" width="53" height="34"/>
                                         <state key="normal" title="°C / °F">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
@@ -65,7 +65,7 @@ first location
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HHJ-hB-Jcc">
-                                        <rect key="frame" x="360" y="28.5" width="30" height="41"/>
+                                        <rect key="frame" x="360" y="114.5" width="30" height="41"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="24"/>
                                         <state key="normal" title="+">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -81,7 +81,7 @@ first location
                                     <constraint firstItem="kJK-EA-kUo" firstAttribute="leading" secondItem="SwI-TT-mkw" secondAttribute="leading" constant="48" id="TM8-Se-SEj"/>
                                     <constraint firstAttribute="trailing" secondItem="HHJ-hB-Jcc" secondAttribute="trailing" constant="24" id="btp-Qz-3k4"/>
                                     <constraint firstItem="HHJ-hB-Jcc" firstAttribute="centerY" secondItem="kJK-EA-kUo" secondAttribute="centerY" id="gQe-L1-Npv"/>
-                                    <constraint firstAttribute="height" constant="114" id="wAf-de-vSV"/>
+                                    <constraint firstAttribute="height" constant="200" id="wAf-de-vSV"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -102,6 +102,7 @@ first location
                     </view>
                     <navigationItem key="navigationItem" title="Dashboard" id="f2a-qg-weL"/>
                     <connections>
+                        <outlet property="bottomBar" destination="SwI-TT-mkw" id="lmw-fD-Q3l"/>
                         <segue destination="PlW-vU-VTx" kind="show" identifier="toDeatails" id="uXe-87-JFl"/>
                     </connections>
                 </viewController>
