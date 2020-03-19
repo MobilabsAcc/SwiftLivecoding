@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2089864624213BF400B94BE2 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2089864524213BF400B94BE2 /* SearchViewController.swift */; };
+		208986492421501500B94BE2 /* LocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 208986482421501500B94BE2 /* LocationTableViewCell.swift */; };
 		20913928241823180080865D /* SwitchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20913927241823180080865D /* SwitchButton.swift */; };
 		20ED3485241180A100827E8A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20ED3484241180A100827E8A /* AppDelegate.swift */; };
 		20ED3487241180A100827E8A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20ED3486241180A100827E8A /* SceneDelegate.swift */; };
@@ -28,6 +30,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2089864524213BF400B94BE2 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		208986482421501500B94BE2 /* LocationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTableViewCell.swift; sourceTree = "<group>"; };
 		20913927241823180080865D /* SwitchButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchButton.swift; sourceTree = "<group>"; };
 		20ED3481241180A100827E8A /* mvcSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mvcSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20ED3484241180A100827E8A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -60,6 +64,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2089864324213B8A00B94BE2 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		2089864424213B9400B94BE2 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				2089864524213BF400B94BE2 /* SearchViewController.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		2089864724214FE700B94BE2 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				208986482421501500B94BE2 /* LocationTableViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		20913926241822400080865D /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
@@ -118,6 +145,7 @@
 		20ED34A72411810000827E8A /* View */ = {
 			isa = PBXGroup;
 			children = (
+				2089864724214FE700B94BE2 /* Cells */,
 				20913926241822400080865D /* Buttons */,
 				20ED348A241180A100827E8A /* Main.storyboard */,
 				20ED348F241180A200827E8A /* LaunchScreen.storyboard */,
@@ -128,6 +156,8 @@
 		20ED34A82411810600827E8A /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				2089864424213B9400B94BE2 /* Search */,
+				2089864324213B8A00B94BE2 /* Home */,
 				20ED3486241180A100827E8A /* SceneDelegate.swift */,
 				20ED3488241180A100827E8A /* ViewController.swift */,
 			);
@@ -243,6 +273,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				208986492421501500B94BE2 /* LocationTableViewCell.swift in Sources */,
+				2089864624213BF400B94BE2 /* SearchViewController.swift in Sources */,
 				20ED3489241180A100827E8A /* ViewController.swift in Sources */,
 				20ED3485241180A100827E8A /* AppDelegate.swift in Sources */,
 				20ED3487241180A100827E8A /* SceneDelegate.swift in Sources */,

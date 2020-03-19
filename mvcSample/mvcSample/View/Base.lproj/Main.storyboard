@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="U4g-fQ-kyp">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="U4g-fQ-kyp">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,16 +16,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sun" translatesAutoresizingMaskIntoConstraints="NO" id="KIp-iG-oJq">
-                                <rect key="frame" x="173" y="0.0" width="241" height="185"/>
-                            </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="girl" translatesAutoresizingMaskIntoConstraints="NO" id="arG-jU-Whf">
-                                <rect key="frame" x="115" y="407" width="299" height="413"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="arG-jU-Whf" secondAttribute="height" multiplier="299:413" id="SUX-OX-REs"/>
-                                </constraints>
+                                <rect key="frame" x="-68" y="0.0" width="482" height="370"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EJI-Eb-bjQ">
-                                <rect key="frame" x="112" y="248" width="190.5" height="115"/>
+                                <rect key="frame" x="112" y="248" width="190.5" height="484"/>
                                 <attributedString key="attributedText">
                                     <fragment>
                                         <string key="content">To add your
@@ -52,6 +46,12 @@ first location
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="girl" translatesAutoresizingMaskIntoConstraints="NO" id="arG-jU-Whf">
+                                <rect key="frame" x="382" y="776" width="32" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="arG-jU-Whf" secondAttribute="height" multiplier="299:413" id="SUX-OX-REs"/>
+                                </constraints>
+                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SwI-TT-mkw">
                                 <rect key="frame" x="0.0" y="696" width="414" height="200"/>
                                 <subviews>
@@ -165,7 +165,7 @@ first location
         </scene>
     </scenes>
     <resources>
-        <image name="girl" width="299" height="413"/>
+        <image name="girl" width="16" height="16"/>
         <image name="sun" width="241" height="185"/>
     </resources>
 </document>
