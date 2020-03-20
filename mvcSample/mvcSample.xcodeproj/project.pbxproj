@@ -17,6 +17,8 @@
 		20ED348E241180A200827E8A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20ED348D241180A200827E8A /* Assets.xcassets */; };
 		20ED3491241180A200827E8A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 20ED348F241180A200827E8A /* LaunchScreen.storyboard */; };
 		20ED349C241180A200827E8A /* mvcSampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20ED349B241180A200827E8A /* mvcSampleTests.swift */; };
+		3CBD1F9824240112005349A3 /* LocationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CBD1F9724240112005349A3 /* LocationCollectionViewCell.swift */; };
+		3CBD1F9A2424016C005349A3 /* LocationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CBD1F992424016C005349A3 /* LocationListViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +46,8 @@
 		20ED3497241180A200827E8A /* mvcSampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = mvcSampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		20ED349B241180A200827E8A /* mvcSampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mvcSampleTests.swift; sourceTree = "<group>"; };
 		20ED349D241180A200827E8A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3CBD1F9724240112005349A3 /* LocationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCollectionViewCell.swift; sourceTree = "<group>"; };
+		3CBD1F992424016C005349A3 /* LocationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationListViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				208986482421501500B94BE2 /* LocationTableViewCell.swift */,
+				3CBD1F9724240112005349A3 /* LocationCollectionViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -160,6 +165,7 @@
 				2089864324213B8A00B94BE2 /* Home */,
 				20ED3486241180A100827E8A /* SceneDelegate.swift */,
 				20ED3488241180A100827E8A /* ViewController.swift */,
+				3CBD1F992424016C005349A3 /* LocationListViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -278,6 +284,8 @@
 				20ED3489241180A100827E8A /* ViewController.swift in Sources */,
 				20ED3485241180A100827E8A /* AppDelegate.swift in Sources */,
 				20ED3487241180A100827E8A /* SceneDelegate.swift in Sources */,
+				3CBD1F9824240112005349A3 /* LocationCollectionViewCell.swift in Sources */,
+				3CBD1F9A2424016C005349A3 /* LocationListViewController.swift in Sources */,
 				20913928241823180080865D /* SwitchButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
