@@ -8,14 +8,16 @@
 
 import UIKit
 
-class LocationListViewController: UIViewController {
+class LocationListViewController: UIViewController, UICollectionViewDelegate {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.reloadData()
-        collectionView.register(LocationCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        //collectionView.register(LocationCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         // Do any additional setup after loading the view.
     }
     
@@ -33,7 +35,7 @@ class LocationListViewController: UIViewController {
 }
 
 extension LocationListViewController: UICollectionViewDataSource {
-    
+        
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 5
     }
