@@ -9,6 +9,23 @@
 import UIKit
 
 final class LocationTableViewCell: UITableViewCell {
+    enum CellType {
+        case empty
+        case location
+        case history
+
+        var accessoryImage: UIImage? {
+            switch self {
+            case .location:
+                return UIImage(systemName: "paperplane.fill")
+            case .history:
+                return UIImage(named: "clock")
+            default:
+                return nil
+            }
+        }
+    }
+
     private let separatorView = UIView()
 
     var model: SearchViewController.SearchItem! {
@@ -28,6 +45,14 @@ final class LocationTableViewCell: UITableViewCell {
                                                            attributes: lightAttributes))
             }
             textLabel?.attributedText = attributedString
+        }
+    }
+
+    var cellType: CellType = .empty {
+        didSet {
+            let imageView = UIImageView(image: cellType.accessoryImage)
+            imageView.tintColor = .white
+            accessoryView = imageView
         }
     }
 

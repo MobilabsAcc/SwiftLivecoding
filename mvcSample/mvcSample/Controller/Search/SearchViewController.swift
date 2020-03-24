@@ -98,15 +98,9 @@ extension SearchViewController: UITableViewDataSource {
         } else {
             cell.model = items[indexPath.row]
         }
-        
-        var accessoryImageType = UIImage(systemName: "paperplane.fill")
-        if indexPath.row != 0 {
-            accessoryImageType = UIImage(named: "clock")
-        }
 
-        let imageView = UIImageView(image: accessoryImageType)
-        imageView.tintColor = .white
-        cell.accessoryView = imageView
+        cell.cellType = indexPath.row == 0 ? .location : .history
+
         return cell
     }
 }
