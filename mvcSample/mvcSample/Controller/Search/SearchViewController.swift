@@ -10,16 +10,12 @@ import UIKit
 import CoreLocation
 
 final class SearchViewController: UIViewController {
-    typealias SearchItem = (boldText: String, lightText: String)
-
     private let locationCellIdentifier = "locationCell"
 
-    private var items = [SearchItem(boldText: "Warsaw", lightText: "Poland"),
-                         SearchItem(boldText: "Gdynia", lightText: "Poland"),
-                         SearchItem(boldText: "Milano", lightText: "Italy"),
-                         SearchItem(boldText: "Viena", lightText: "Austia")]
-    private var filteredItems = [SearchItem]()
-    private var isFiltering = false
+    private var historyItems: [SearchItem] = []
+    private var allItems: [SearchItem] = []
+    private var visibleItems = [SearchItem]()
+
     private var tapGestureRecogniser: UITapGestureRecognizer!
     private lazy var locationManager: CLLocationManager = CLLocationManager()
 
@@ -35,7 +31,6 @@ final class SearchViewController: UIViewController {
         self.view.addSubview(tableView)
         self.view.addSubview(searchBar)
         self.tableView = tableView
-        self.tableView.addGestureRecognizer(tapGestureRecogniser)
     }
     
     @objc
@@ -55,6 +50,7 @@ final class SearchViewController: UIViewController {
         tableView.backgroundColor = .clear
         tableView.rowHeight = 62
         tableView.separatorStyle = .none
+        tableView.keyboardDismissMode = .interactive
 
         tableView.translatesAutoresizingMaskIntoConstraints = false
         searchBar.translatesAutoresizingMaskIntoConstraints = false
@@ -72,6 +68,7 @@ final class SearchViewController: UIViewController {
         tableView.register(LocationTableViewCell.self, forCellReuseIdentifier: locationCellIdentifier)
 
         tableView.dataSource = self
+        tableView.delegate = self
 
         let gradientLayer = CAGradientLayer()
         gradientLayer.colors = [
@@ -82,45 +79,63 @@ final class SearchViewController: UIViewController {
         gradientLayer.endPoint = CGPoint(x: 0, y: 1)
         gradientLayer.frame = view.bounds
         view.layer.insertSublayer(gradientLayer, at: 0)
+
+        CityRepository.getAllCities { [weak self] cities in
+            self?.allItems = cities.map { city in
+                return SearchItem(city: city.name, country: city.country, alternativeText: "", type: .plain)
+            }
+            self?.visibleItems = self?.allItems ?? []
+            self?.tableView.reloadData()
+        }
     }
 }
 
 extension SearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return isFiltering ? filteredItems.count : items.count
+        return visibleItems.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: locationCellIdentifier, for: indexPath) as? LocationTableViewCell else { return UITableViewCell() }
 
-        if isFiltering {
-            cell.model = filteredItems[indexPath.row]
-        } else {
-            cell.model = items[indexPath.row]
-        }
-
-        cell.cellType = indexPath.row == 0 ? .location : .history
+        cell.model = visibleItems[indexPath.row]
 
         return cell
+    }
+}
+
+extension SearchViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        var tappedItem = visibleItems[indexPath.row]
+        if !historyItems.contains(where: { item -> Bool in
+            return item.city == tappedItem.city && item.country == tappedItem.country
+        }) {
+            tappedItem.type = .history
+            historyItems.append(tappedItem)
+        }
     }
 }
 
 extension SearchViewController: UISearchBarDelegate {
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        isFiltering = true
     }
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        isFiltering = false
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty {
+            visibleItems = historyItems
             hideKeyboard()
         } else {
-            filteredItems = items.filter({ $0.boldText.contains(searchText) })
+            visibleItems = allItems.filter({ $0.city.contains(searchText) })
         }
+        tableView.reloadData()
+    }
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        visibleItems = historyItems
         tableView.reloadData()
     }
 }
@@ -129,7 +144,7 @@ extension SearchViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         
         if status == .authorizedWhenInUse {
-            items.insert(SearchItem(boldText: "Your current location", lightText: ""), at: 0)
+            historyItems.insert(SearchItem(city: "", country: "", alternativeText: "Your current location", type: .currentLocation), at: 0)
             tableView.reloadData()
         }
     }
@@ -137,13 +152,16 @@ extension SearchViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         print(locations)
-        if items.count > 0,
-            let location = locations.first {
-            let newItem = SearchItem(boldText: "\(location.coordinate.latitude) \(location.coordinate.longitude)", lightText: "")
-            
-            items.remove(at: 0)
-            items.insert(newItem, at: 0)
-            tableView.reloadData()
-        }
+//        if items.count > 0,
+//            let location = locations.first {
+//            let newItem = SearchItem(city: "",
+//                                     country: "",
+//                                     alternativeText: "\(location.coordinate.latitude) \(location.coordinate.longitude)",
+//                type: .currentLocation)
+//
+//            items.remove(at: 0)
+//            items.insert(newItem, at: 0)
+//            tableView.reloadData()
+//        }
     }
 }

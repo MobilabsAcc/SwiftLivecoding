@@ -26,33 +26,29 @@ final class LocationTableViewCell: UITableViewCell {
         }
     }
 
-    private let separatorView = UIView()
-
-    var model: SearchViewController.SearchItem! {
-        didSet {
-            let attributedString = NSMutableAttributedString()
-            let lightAttributes = [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 24.0, weight: UIFont.Weight.light),
-                                   NSAttributedString.Key.foregroundColor: UIColor.white]
-            let mediumAttributes = [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 24.0, weight: UIFont.Weight.medium),
-                                    NSAttributedString.Key.foregroundColor: UIColor.white]
-
-            attributedString.append(NSAttributedString(string: model.0,
-                                                       attributes: mediumAttributes))
-            if !model.1.isEmpty {
-                attributedString.append(NSAttributedString(string: ", ",
-                                                           attributes: mediumAttributes))
-                attributedString.append(NSAttributedString(string: model.1,
-                                                           attributes: lightAttributes))
-            }
-            textLabel?.attributedText = attributedString
-        }
-    }
-
-    var cellType: CellType = .empty {
+    private var cellType: CellType = .empty {
         didSet {
             let imageView = UIImageView(image: cellType.accessoryImage)
             imageView.tintColor = .white
             accessoryView = imageView
+        }
+    }
+
+    private let separatorView = UIView()
+
+    var model: SearchItem! {
+        didSet {
+            switch model.type {
+            case .currentLocation:
+                textLabel?.text = model.alternativeText
+                cellType = .location
+            case .history:
+                setupDataForCity()
+                cellType = .history
+            case .plain:
+                setupDataForCity()
+                cellType = .empty
+            }
         }
     }
 
@@ -72,6 +68,24 @@ final class LocationTableViewCell: UITableViewCell {
         super.awakeFromNib()
 
         setupView()
+    }
+
+    private func setupDataForCity() {
+        let attributedString = NSMutableAttributedString()
+        let lightAttributes = [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 24.0, weight: UIFont.Weight.light),
+                               NSAttributedString.Key.foregroundColor: UIColor.white]
+        let mediumAttributes = [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 24.0, weight: UIFont.Weight.medium),
+                                NSAttributedString.Key.foregroundColor: UIColor.white]
+
+        attributedString.append(NSAttributedString(string: model.city,
+                                                   attributes: mediumAttributes))
+        if !model.country.isEmpty {
+            attributedString.append(NSAttributedString(string: ", ",
+                                                       attributes: mediumAttributes))
+            attributedString.append(NSAttributedString(string: model.country,
+                                                       attributes: lightAttributes))
+        }
+        textLabel?.attributedText = attributedString
     }
 
     private func setupView() {
