@@ -9,5 +9,8 @@
 import UIKit
 
 class LocationCollectionViewCell: UICollectionViewCell {
+   
+    @IBOutlet weak var temperarture: UILabel!
+    @IBOutlet weak var cityName: UILabel!
     
 }

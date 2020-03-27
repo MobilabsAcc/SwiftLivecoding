@@ -59,6 +59,31 @@ class ViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        UserDefaults.standard.set("Warsaw", forKey: "selectedCity")
+        if let city = UserDefaults.standard.value(forKey: "selectedCity") as? String {
+            
+            WeatherRepository.get(city) { weather in
+                
+                if let weather = weather {
+                    let cityWeather = CityWeather(cityName: city, temperature: weather.main.temp)
+                    self.showCityList(cityWeather)
+                }
+            }
+            
+        }
+    }
+    
+    func showCityList(_ weather: CityWeather) {
+        let cityListVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "LocationListViewController") as! LocationListViewController
+        cityListVC.cityList = [weather]
+        view.insertSubview(cityListVC.view, belowSubview: bottomBar)
+        
+        cityListVC.view.translatesAutoresizingMaskIntoConstraints = false
+        cityListVC.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        cityListVC.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        cityListVC.view.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        cityListVC.view.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     }
 
     override func viewDidAppear(_ animated: Bool) {

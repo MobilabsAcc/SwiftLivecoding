@@ -112,6 +112,7 @@ extension SearchViewController: UITableViewDelegate {
         }) {
             tappedItem.type = .history
             historyItems.append(tappedItem)
+            UserDefaults.standard.set(tappedItem.city, forKey: "selectedCity")   
         }
     }
 }
