@@ -88,6 +88,31 @@ final class SearchViewController: UIViewController {
             self?.tableView.reloadData()
         }
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+         
+        let decoder = JSONDecoder()
+        
+        let citiList = historyItems.map{ CityObject(title: $0.city, dateAdded: Date()) }
+        let encoder = JSONEncoder()
+        do {
+            var listObject: CityList
+
+            if let previousListData = UserDefaults.standard.data(forKey: "CityList") {
+                let previousCityList = try decoder.decode(CityList.self, from: previousListData)
+                listObject = CityList(cities: previousCityList.cities + citiList)
+            } else {
+                listObject = CityList(cities: citiList)
+            }
+            
+            let data = try encoder.encode(listObject)
+            UserDefaults.standard.set(data, forKey: "CityList")
+        } catch {
+            print(error)
+        }
+        
+    }
 }
 
 extension SearchViewController: UITableViewDataSource {
@@ -99,7 +124,6 @@ extension SearchViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: locationCellIdentifier, for: indexPath) as? LocationTableViewCell else { return UITableViewCell() }
 
         cell.model = visibleItems[indexPath.row]
-
         return cell
     }
 }
@@ -107,14 +131,23 @@ extension SearchViewController: UITableViewDataSource {
 extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         var tappedItem = visibleItems[indexPath.row]
+        
         if !historyItems.contains(where: { item -> Bool in
-            return item.city == tappedItem.city && item.country == tappedItem.country
+            return item == tappedItem
         }) {
             tappedItem.type = .history
             historyItems.append(tappedItem)
-            UserDefaults.standard.set(tappedItem.city, forKey: "selectedCity")   
         }
     }
+}
+
+struct CityList: Codable {
+    let cities: [CityObject]
+}
+
+struct CityObject: Codable  {
+    let title: String
+    let dateAdded: Date
 }
 
 extension SearchViewController: UISearchBarDelegate {
@@ -143,11 +176,11 @@ extension SearchViewController: UISearchBarDelegate {
 
 extension SearchViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        
-        if status == .authorizedWhenInUse {
-            historyItems.insert(SearchItem(city: "", country: "", alternativeText: "Your current location", type: .currentLocation), at: 0)
-            tableView.reloadData()
-        }
+//
+//        if status == .authorizedWhenInUse {
+//            historyItems.insert(SearchItem(city: "", country: "", alternativeText: "Your current location", type: .currentLocation), at: 0)
+//            tableView.reloadData()
+//        }
     }
     
     

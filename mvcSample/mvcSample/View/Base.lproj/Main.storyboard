@@ -4,7 +4,6 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -128,44 +127,7 @@ first location
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="nMo-hv-PcI" customClass="LocationCollectionViewCell" customModule="mvcSample" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="ZaP-b3-0eg">
-                                            <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SDSDsfs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3z7-o9-eZj">
-                                                    <rect key="frame" x="41" y="64.5" width="68" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wpy-UH-tyV">
-                                                    <rect key="frame" x="54" y="108" width="42" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <color key="backgroundColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <constraints>
-                                                <constraint firstItem="Wpy-UH-tyV" firstAttribute="top" secondItem="3z7-o9-eZj" secondAttribute="bottom" constant="22.5" id="LiU-Cx-Noc"/>
-                                                <constraint firstItem="Wpy-UH-tyV" firstAttribute="centerX" secondItem="ZaP-b3-0eg" secondAttribute="centerX" id="Sa4-0a-yAL"/>
-                                                <constraint firstAttribute="bottom" secondItem="Wpy-UH-tyV" secondAttribute="bottom" constant="21" id="bzX-3T-re5"/>
-                                                <constraint firstItem="3z7-o9-eZj" firstAttribute="centerY" secondItem="ZaP-b3-0eg" secondAttribute="centerY" id="iCc-kr-S4c"/>
-                                                <constraint firstItem="3z7-o9-eZj" firstAttribute="centerX" secondItem="ZaP-b3-0eg" secondAttribute="centerX" id="qEK-oJ-TEs"/>
-                                            </constraints>
-                                        </collectionViewCellContentView>
-                                        <color key="backgroundColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <size key="customSize" width="150" height="150"/>
-                                        <connections>
-                                            <outlet property="cityName" destination="3z7-o9-eZj" id="MMK-ra-fUQ"/>
-                                            <outlet property="temperarture" destination="Wpy-UH-tyV" id="CgF-zl-WDg"/>
-                                        </connections>
-                                    </collectionViewCell>
-                                </cells>
+                                <cells/>
                                 <connections>
                                     <outlet property="dataSource" destination="kq7-Du-bSF" id="PUG-Ip-ZpX"/>
                                     <outlet property="delegate" destination="kq7-Du-bSF" id="13W-vf-emn"/>

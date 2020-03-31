@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct SearchItem {
+struct SearchItem: Equatable {
     enum ItemType {
         case plain
         case history
@@ -19,4 +19,9 @@ struct SearchItem {
     let country: String
     let alternativeText: String
     var type: ItemType
+    
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        return lhs.city == rhs.city && lhs.country == rhs.country
+    }
+    
 }

@@ -20,9 +20,10 @@ class LocationListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.reloadData()
         
-//        collectionView.register(LocationCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.register(LocationCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.reloadData()
+
         // Do any additional setup after loading the view.
     }
     
