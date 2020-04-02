@@ -138,6 +138,18 @@ extension SearchViewController: UITableViewDelegate {
             tappedItem.type = .history
             historyItems.append(tappedItem)
         }
+
+        openDetails(for: tappedItem)
+    }
+
+    private func openDetails(for selection: SearchItem) {
+        let detailsVC = UIStoryboard(name: "Main",
+                                     bundle: nil)
+            .instantiateViewController(identifier: "WeatherDetailsViewController") as! WeatherDetailsViewController
+
+        detailsVC.selectedCityName = selection.city
+
+        navigationController?.pushViewController(detailsVC, animated: true)
     }
 }
 

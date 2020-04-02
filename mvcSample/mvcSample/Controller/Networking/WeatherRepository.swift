@@ -7,34 +7,76 @@
 //
 
 import Foundation
+import Alamofire
+
+enum WeatherAPI {
+    case weatherForCity(String)
+
+    private var basePath: String {
+        return "https://api.openweathermap.org/data/2.5"
+    }
+
+    var path: String {
+        return basePath + endpoint
+    }
+
+    var url: URL? {
+        return URL(string: path)
+    }
+
+    var endpoint: String {
+        switch self {
+        case .weatherForCity:
+            return "/weather"
+        }
+    }
+
+    var method: HTTPMethod {
+        switch self {
+        default:
+            return .get
+        }
+    }
+
+    var queryParams: Parameters {
+        var params = ["appid": "8ff1fb3e2647bfd32f6ac1aa277253f7",
+                      "units": "metric"]
+        switch self {
+        case .weatherForCity(let city):
+            params["q"] = city
+        }
+
+        return params
+    }
+}
 
 struct WeatherRepository {
-    static let address = "https://api.openweathermap.org/data/2.5/weather?appid=8ff1fb3e2647bfd32f6ac1aa277253f7&units=metric"
+    static func get(_ cityName: String, completion: @escaping ((Weather?, Error?) -> Void)) {
+        execureRequest(.weatherForCity(cityName), completion: completion)
+    }
 
-    static func get(_ cityName: String, completion: @escaping ((Weather?) -> Void)) {
-        
-        let fullUrl = address + "&q=" + cityName
-        if let citiesURL = URL(string: fullUrl) {
-            let datatask = URLSession.shared.dataTask(with: citiesURL) { data, response, error in
-                guard let data = data else {
-                    DispatchQueue.main.async {
-                        completion(nil)
-                    }
-                    return
-                }
+    private static func execureRequest<T: Codable>(_ request: WeatherAPI,
+                                                   completion: @escaping ((T?, Error?) -> Void)) {
+        guard let requestUrl = request.url else { return }
+
+        AF
+            .request(requestUrl,
+                     method: request.method,
+                     parameters: request.queryParams)
+            .response { response in
+                guard let data = response.data else { return }
+
                 do {
                     let decoder = JSONDecoder()
-                    let weather: Weather = try decoder.decode(Weather.self, from: data)
+                    let responseObject: T = try decoder.decode(T.self, from: data)
                     DispatchQueue.main.async {
-                        completion(weather)
+                        completion(responseObject, nil)
                     }
                 } catch {
                     DispatchQueue.main.async {
-                        completion(nil)
+                        completion(nil, error)
                     }
                 }
-            }
-            datatask.resume()
         }
     }
 }
