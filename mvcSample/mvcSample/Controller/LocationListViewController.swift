@@ -61,7 +61,13 @@ extension LocationListViewController: UICollectionViewDataSource {
 extension LocationListViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        let detailsVC = UIStoryboard(name: "Main",
+                                     bundle: nil)
+            .instantiateViewController(identifier: "WeatherDetailsViewController") as! WeatherDetailsViewController
+
+        detailsVC.selectedCityName = cityList[indexPath.row].cityName
+
+        navigationController?.pushViewController(detailsVC, animated: true)
     }
 }
 

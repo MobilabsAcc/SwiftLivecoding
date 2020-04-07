@@ -11,6 +11,7 @@ import Alamofire
 
 enum WeatherAPI {
     case weatherForCity(String)
+    case dailyWeather(String)
 
     private var basePath: String {
         return "https://api.openweathermap.org/data/2.5"
@@ -28,6 +29,8 @@ enum WeatherAPI {
         switch self {
         case .weatherForCity:
             return "/weather"
+        case .dailyWeather:
+            return "/forecast"
         }
     }
 
@@ -44,6 +47,8 @@ enum WeatherAPI {
         switch self {
         case .weatherForCity(let city):
             params["q"] = city
+        case .dailyWeather(let city):
+            params["q"] = city
         }
 
         return params
@@ -51,8 +56,12 @@ enum WeatherAPI {
 }
 
 struct WeatherRepository {
-    static func get(_ cityName: String, completion: @escaping ((Weather?, Error?) -> Void)) {
+    static func getCurrentWeather(_ cityName: String, completion: @escaping ((Weather?, Error?) -> Void)) {
         execureRequest(.weatherForCity(cityName), completion: completion)
+    }
+
+    static func get5DaysForecast(for cityName: String, completion: @escaping ((DailyWeather?, Error?) -> Void)) {
+        execureRequest(.dailyWeather(cityName), completion: completion)
     }
 
     private static func execureRequest<T: Codable>(_ request: WeatherAPI,
@@ -79,72 +88,4 @@ struct WeatherRepository {
                 }
         }
     }
-}
-
-struct Weather: Codable {
-    let coord: Coord
-    let weather: [WeatherElement]
-    let base: String
-    let main: Main
-    let visibility: Int
-    let wind: Wind
-    let clouds: Clouds
-    let dt: Int
-    let id: Int
-    let name: String
-    let cod: Int
-}
-
- 
-
-// MARK: - Clouds
-struct Clouds: Codable {
-    let all: Int
-}
-
- 
-
-// MARK: - Coord
-struct Coord: Codable {
-    let lon, lat: Double
-}
-
- 
-
-// MARK: - Main
-struct Main: Codable {
-    let temp: Double
-    let pressure, humidity: Int
-    let tempMin, tempMax: Double
-
- 
-
-    enum CodingKeys: String, CodingKey {
-        case temp, pressure, humidity
-        case tempMin = "temp_min"
-        case tempMax = "temp_max"
-    }
-}
-
-
-// MARK: - WeatherElement
-struct WeatherElement: Codable {
-    let id: Int
-    let main, weatherDescription, icon: String
-
- 
-
-    enum CodingKeys: String, CodingKey {
-        case id, main
-        case weatherDescription = "description"
-        case icon
-    }
-}
-
- 
-
-// MARK: - Wind
-struct Wind: Codable {
-    let speed: Double
-    let deg: Int
 }

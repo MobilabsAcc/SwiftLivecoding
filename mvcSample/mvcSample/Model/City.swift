@@ -11,6 +11,4 @@ import Foundation
 struct City: Codable {
     let country: String
     let name: String
-    let lat: String
-    let lng: String
 }

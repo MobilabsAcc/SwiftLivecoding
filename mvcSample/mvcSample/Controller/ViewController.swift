@@ -74,7 +74,7 @@ class ViewController: UIViewController {
                     
                     cityList.cities.forEach{ city in
                         group.enter()
-                        WeatherRepository.get(city.title) { weather in
+                        WeatherRepository.getCurrentWeather(city.title) { weather, error in
                             group.leave()
                             if let weather = weather {
                                 let cityWeather = CityWeather(cityName: city.title, temperature: weather.main.temp)
@@ -88,16 +88,9 @@ class ViewController: UIViewController {
                         self.showCityList(weatherList)
                     }
                 }
-                
-
-                
-                
-                
             } catch {
                 
             }
-            
-            
         }
     }
     
