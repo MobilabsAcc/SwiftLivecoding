@@ -27,6 +27,13 @@ class LocationListViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let rect =  CGRect(x: 0, y: collectionView.contentSize.height, width: 30, height: 1)
+        collectionView.scrollRectToVisible(rect, animated: true)
+    }
+    
 
     /*
     // MARK: - Navigation

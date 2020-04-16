@@ -11,6 +11,9 @@ import UIKit
 class ViewController: UIViewController {
     
     @IBOutlet weak var bottomBar: UIView!
+    
+    var listViewController: UIViewController?
+    
     override func loadView() {
         super.loadView()
         
@@ -96,24 +99,23 @@ class ViewController: UIViewController {
     
     func showCityList(_ weathers: [CityWeather]) {
         
-        let cityListVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "LocationListViewController") as! LocationListViewController
-        cityListVC.cityList = weathers
-        view.insertSubview(cityListVC.view, belowSubview: bottomBar)
-        
-        cityListVC.view.translatesAutoresizingMaskIntoConstraints = false
-        
-//        cityListVC.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-//        cityListVC.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-//
-//        cityListVC.view.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-//        cityListVC.view.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        addChild(cityListVC)
-        
-        cityListVC.view.snp.makeConstraints { maker in
-            maker.top.bottom.equalTo(view.safeAreaLayoutGuide)
-            maker.leading.trailing.equalToSuperview()
+        if let cityListVC = listViewController as? LocationListViewController {
+            cityListVC.cityList = weathers
+        } else {
+            let cityListVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(identifier: "LocationListViewController") as! LocationListViewController
+            cityListVC.cityList = weathers
+            view.insertSubview(cityListVC.view, belowSubview: bottomBar)
+            
+            cityListVC.view.translatesAutoresizingMaskIntoConstraints = false
+            
+            self.listViewController = cityListVC
+            addChild(cityListVC)
+            
+            cityListVC.view.snp.makeConstraints { maker in
+                maker.top.bottom.equalTo(view.safeAreaLayoutGuide)
+                maker.leading.trailing.equalToSuperview()
+            }
         }
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {

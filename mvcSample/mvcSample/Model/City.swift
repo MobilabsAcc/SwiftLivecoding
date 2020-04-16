@@ -9,6 +9,7 @@
 import Foundation
 
 struct City: Codable {
+    let id: Int?
     let country: String
     let name: String
 }
