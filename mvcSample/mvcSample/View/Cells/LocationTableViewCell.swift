@@ -9,11 +9,15 @@
 import UIKit
 
 final class LocationTableViewCell: UITableViewCell {
+    
+    var cityName: String = " "
+    var countryName: String = " "
+    
     enum CellType {
         case empty
         case location
         case history
-
+        
         var accessoryImage: UIImage? {
             switch self {
             case .location:
@@ -25,7 +29,7 @@ final class LocationTableViewCell: UITableViewCell {
             }
         }
     }
-
+    
     private var cellType: CellType = .empty {
         didSet {
             let imageView = UIImageView(image: cellType.accessoryImage)
@@ -33,14 +37,14 @@ final class LocationTableViewCell: UITableViewCell {
             accessoryView = imageView
         }
     }
-
+    
     private let separatorView = UIView()
-
-    var model: SearchItem! {
-        didSet {
-            switch model.type {
+    
+    var type: ItemType = .plain {
+        didSet{
+            switch self.type {
             case .currentLocation:
-                textLabel?.text = model.alternativeText
+                textLabel?.text = "Current Location"
                 cellType = .location
             case .history:
                 setupDataForCity()
@@ -51,49 +55,55 @@ final class LocationTableViewCell: UITableViewCell {
             }
         }
     }
-
+    
+    var model: City! {
+        didSet {
+            cityName = model.name
+            countryName = model.country
+        }
+    }
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-
         setupView()
     }
-
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-
+        
         setupView()
     }
-
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-
+        
         setupView()
     }
-
+    
     private func setupDataForCity() {
         let attributedString = NSMutableAttributedString()
         let lightAttributes = [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 24.0, weight: UIFont.Weight.light),
                                NSAttributedString.Key.foregroundColor: UIColor.white]
         let mediumAttributes = [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 24.0, weight: UIFont.Weight.medium),
                                 NSAttributedString.Key.foregroundColor: UIColor.white]
-
-        attributedString.append(NSAttributedString(string: model.city,
+        
+        attributedString.append(NSAttributedString(string: cityName,
                                                    attributes: mediumAttributes))
         if !model.country.isEmpty {
             attributedString.append(NSAttributedString(string: ", ",
                                                        attributes: mediumAttributes))
-            attributedString.append(NSAttributedString(string: model.country,
+            attributedString.append(NSAttributedString(string: countryName,
                                                        attributes: lightAttributes))
         }
         textLabel?.attributedText = attributedString
     }
-
+    
     private func setupView() {
         backgroundColor = .clear
         contentView.backgroundColor = .clear
         textLabel?.textColor = .white
         textLabel?.font = .systemFont(ofSize: 24.0, weight: .medium)
-
+        
         separatorView.backgroundColor = .white
         separatorView.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(separatorView)

@@ -7,9 +7,20 @@
 //
 
 import Foundation
+import UIKit
 
-struct CityWeather {
+class CityWeather {
     let cityName: String
+    var image: UIImage
     let temperature: Double
-    let dateAdded: Date = Date()
+    let description: String
+    let icon: String
+    
+    init(cityName: String, temperature: Double, description: String, icon: String) {
+        self.cityName = cityName
+        self.temperature = temperature
+        self.description = description
+        self.icon = icon
+        image = UIImage()
+    }
 }

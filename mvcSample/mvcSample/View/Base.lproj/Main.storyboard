@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="U4g-fQ-kyp">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="U4g-fQ-kyp">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -82,6 +82,7 @@ first location
                                     <constraint firstItem="kJK-EA-kUo" firstAttribute="leading" secondItem="SwI-TT-mkw" secondAttribute="leading" constant="48" id="TM8-Se-SEj"/>
                                     <constraint firstAttribute="trailing" secondItem="HHJ-hB-Jcc" secondAttribute="trailing" constant="24" id="btp-Qz-3k4"/>
                                     <constraint firstItem="HHJ-hB-Jcc" firstAttribute="centerY" secondItem="kJK-EA-kUo" secondAttribute="centerY" id="gQe-L1-Npv"/>
+                                    <constraint firstItem="HHJ-hB-Jcc" firstAttribute="leading" secondItem="kJK-EA-kUo" secondAttribute="trailing" constant="259" id="qUe-Zp-Gfk"/>
                                     <constraint firstAttribute="height" constant="200" id="wAf-de-vSV"/>
                                 </constraints>
                             </view>
@@ -119,9 +120,9 @@ first location
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="5mB-tT-ozi">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="20" y="64" width="374" height="798"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="g4m-Z4-dLw">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="20" minimumInteritemSpacing="20" id="g4m-Z4-dLw">
                                     <size key="itemSize" width="150" height="150"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -137,9 +138,9 @@ first location
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="HEj-oZ-G57" firstAttribute="bottom" secondItem="5mB-tT-ozi" secondAttribute="bottom" id="PE8-GN-ShL"/>
-                            <constraint firstItem="5mB-tT-ozi" firstAttribute="top" secondItem="HEj-oZ-G57" secondAttribute="top" id="Uz9-c1-eCn"/>
-                            <constraint firstItem="5mB-tT-ozi" firstAttribute="leading" secondItem="HEj-oZ-G57" secondAttribute="leading" id="qt3-w4-oNV"/>
-                            <constraint firstItem="HEj-oZ-G57" firstAttribute="trailing" secondItem="5mB-tT-ozi" secondAttribute="trailing" id="zjZ-q1-0Pz"/>
+                            <constraint firstItem="5mB-tT-ozi" firstAttribute="top" secondItem="HEj-oZ-G57" secondAttribute="top" constant="20" id="Uz9-c1-eCn"/>
+                            <constraint firstItem="5mB-tT-ozi" firstAttribute="leading" secondItem="HEj-oZ-G57" secondAttribute="leading" constant="20" id="qt3-w4-oNV"/>
+                            <constraint firstItem="HEj-oZ-G57" firstAttribute="trailing" secondItem="5mB-tT-ozi" secondAttribute="trailing" constant="20" id="zjZ-q1-0Pz"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="HEj-oZ-G57"/>
                     </view>

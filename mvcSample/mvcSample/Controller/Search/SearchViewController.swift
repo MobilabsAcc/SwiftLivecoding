@@ -12,9 +12,11 @@ import CoreLocation
 final class SearchViewController: UIViewController {
     private let locationCellIdentifier = "locationCell"
 
-    private var historyItems: [SearchItem] = []
-    private var allItems: [SearchItem] = []
-    private var visibleItems = [SearchItem]()
+    private var historyItems: Set<City> = []
+    private var allItems: [City] = []
+    private var visibleItems: [City] = []
+    
+    private var itemType: ItemType = .plain
 
     private var tapGestureRecogniser: UITapGestureRecognizer!
     private lazy var locationManager: CLLocationManager = CLLocationManager()
@@ -31,6 +33,17 @@ final class SearchViewController: UIViewController {
         self.view.addSubview(tableView)
         self.view.addSubview(searchBar)
         self.tableView = tableView
+        
+        getHistoryItems()
+        
+        visibleItems = Array(historyItems)
+        itemType = .history
+
+        if visibleItems.isEmpty {
+            getAllCities()
+            visibleItems = allItems
+            itemType = .plain
+        }
     }
     
     @objc
@@ -40,7 +53,24 @@ final class SearchViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setup()
+        setGradient()
         
+        if allItems.isEmpty {
+            getAllCities()
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        saveHistoryItems()
+    }
+    
+}
+
+fileprivate extension SearchViewController {
+    
+    func setup() {
         locationManager.requestWhenInUseAuthorization()
         locationManager.delegate = self
         locationManager.startUpdatingLocation()
@@ -62,14 +92,16 @@ final class SearchViewController: UIViewController {
         
         tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-       
+        
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-
+        
         tableView.register(LocationTableViewCell.self, forCellReuseIdentifier: locationCellIdentifier)
-
+        
         tableView.dataSource = self
         tableView.delegate = self
-
+    }
+    
+    func setGradient() {
         let gradientLayer = CAGradientLayer()
         gradientLayer.colors = [
             UIColor(red: 85.0/255.0, green: 157.0/255.0, blue: 1.0, alpha: 1.0).cgColor,
@@ -79,41 +111,40 @@ final class SearchViewController: UIViewController {
         gradientLayer.endPoint = CGPoint(x: 0, y: 1)
         gradientLayer.frame = view.bounds
         view.layer.insertSublayer(gradientLayer, at: 0)
-
-        CityRepository.getAllCities { [weak self] cities in
-            self?.allItems = cities.map { city in
-                return SearchItem(city: city.name, country: city.country, alternativeText: "", type: .plain)
-            }
-            self?.visibleItems = self?.allItems ?? []
-            self?.tableView.reloadData()
+    }
+    
+    func getAllCities() {
+        CityRepository.getAllCities { cities in
+            self.allItems = cities
+            self.tableView.reloadData()
         }
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-         
+    func getHistoryItems() {
         let decoder = JSONDecoder()
-        
-        let citiList = historyItems.map{ CityObject(title: $0.city, dateAdded: Date()) }
-        let encoder = JSONEncoder()
         do {
-            var listObject: CityList
-
             if let previousListData = UserDefaults.standard.data(forKey: "CityList") {
                 let previousCityList = try decoder.decode(CityList.self, from: previousListData)
-                listObject = CityList(cities: previousCityList.cities + citiList)
-            } else {
-                listObject = CityList(cities: citiList)
+                historyItems.formUnion(previousCityList.cities)
             }
-            
-            let data = try encoder.encode(listObject)
-            UserDefaults.standard.set(data, forKey: "CityList")
         } catch {
             print(error)
         }
+    }
+    
+    func saveHistoryItems() {
+        let encoder = JSONEncoder()
+        let listObject = CityList(cities: historyItems)
         
+        do {
+            let data = try encoder.encode(listObject)
+            UserDefaults.standard.set(data, forKey: "CityList")
+        }catch {
+            print(error)
+        }
     }
 }
+
 
 extension SearchViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -122,45 +153,32 @@ extension SearchViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: locationCellIdentifier, for: indexPath) as? LocationTableViewCell else { return UITableViewCell() }
-
-        cell.model = visibleItems[indexPath.row]
+        cell.model = visibleItems[visibleItems.index(visibleItems.startIndex, offsetBy: indexPath.row)]
+        cell.type = itemType
         return cell
     }
 }
 
 extension SearchViewController: UITableViewDelegate {
+    
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var tappedItem = visibleItems[indexPath.row]
-        
-        if !historyItems.contains(where: { item -> Bool in
-            return item == tappedItem
-        }) {
-            tappedItem.type = .history
-            historyItems.append(tappedItem)
-        }
-
+        let tappedItem = visibleItems[indexPath.row]
+        historyItems.insert(tappedItem)
+        visibleItems.append(tappedItem)
         openDetails(for: tappedItem)
     }
 
-    private func openDetails(for selection: SearchItem) {
-        let detailsVC = UIStoryboard(name: "Main",
-                                     bundle: nil)
+    private func openDetails(for selection: City) {
+        let detailsVC = UIStoryboard(name: "Main", bundle: nil)
             .instantiateViewController(identifier: "WeatherDetailsViewController") as! WeatherDetailsViewController
 
-        detailsVC.selectedCityName = selection.city
-
+        detailsVC.selectedCityName = selection.name
         navigationController?.pushViewController(detailsVC, animated: true)
     }
 }
 
-struct CityList: Codable {
-    let cities: [CityObject]
-}
 
-struct CityObject: Codable  {
-    let title: String
-    let dateAdded: Date
-}
 
 extension SearchViewController: UISearchBarDelegate {
     
@@ -171,17 +189,18 @@ extension SearchViewController: UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchText.isEmpty {
-            visibleItems = historyItems
+        if searchText.isEmpty && !historyItems.isEmpty {
+            visibleItems = Array(historyItems)
             hideKeyboard()
+            tableView.reloadData()
         } else {
-            visibleItems = allItems.filter({ $0.city.contains(searchText) })
+            visibleItems = allItems.filter({ $0.name.contains(searchText) })
+            tableView.reloadData()
         }
-        tableView.reloadData()
+       
     }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        visibleItems = historyItems
         tableView.reloadData()
     }
 }

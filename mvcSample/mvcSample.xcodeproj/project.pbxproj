@@ -32,6 +32,10 @@
 		3C6A8E8B242D356600C4E1E2 /* WeatherRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C6A8E8A242D356600C4E1E2 /* WeatherRepository.swift */; };
 		3CBD1F9824240112005349A3 /* LocationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CBD1F9724240112005349A3 /* LocationCollectionViewCell.swift */; };
 		3CBD1F9A2424016C005349A3 /* LocationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CBD1F992424016C005349A3 /* LocationListViewController.swift */; };
+		C057FAF22448C980009D97A2 /* city.list.json in Resources */ = {isa = PBXBuildFile; fileRef = C057FAF12448C980009D97A2 /* city.list.json */; };
+		C0EDF94A244910E00039DD6E /* WeatherImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EDF949244910DF0039DD6E /* WeatherImage.swift */; };
+		C0EDF94D244927970039DD6E /* AlamofireImage in Frameworks */ = {isa = PBXBuildFile; productRef = C0EDF94C244927970039DD6E /* AlamofireImage */; };
+		C0EDF962244A426B0039DD6E /* ItemType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EDF961244A426B0039DD6E /* ItemType.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +76,9 @@
 		3C6A8E8A242D356600C4E1E2 /* WeatherRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherRepository.swift; sourceTree = "<group>"; };
 		3CBD1F9724240112005349A3 /* LocationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCollectionViewCell.swift; sourceTree = "<group>"; };
 		3CBD1F992424016C005349A3 /* LocationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationListViewController.swift; sourceTree = "<group>"; };
+		C057FAF12448C980009D97A2 /* city.list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = city.list.json; sourceTree = "<group>"; };
+		C0EDF949244910DF0039DD6E /* WeatherImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherImage.swift; sourceTree = "<group>"; };
+		C0EDF961244A426B0039DD6E /* ItemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +88,7 @@
 			files = (
 				1B62C33B2436397400F6514C /* SnapKit in Frameworks */,
 				20D049FC24364859004AB68F /* Alamofire in Frameworks */,
+				C0EDF94D244927970039DD6E /* AlamofireImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,6 +113,7 @@
 		2089864324213B8A00B94BE2 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				20ED3488241180A100827E8A /* ViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -140,6 +149,7 @@
 			children = (
 				20972E8C242A7D7F00AFB707 /* CityRepository.swift */,
 				3C6A8E8A242D356600C4E1E2 /* WeatherRepository.swift */,
+				C0EDF949244910DF0039DD6E /* WeatherImage.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -202,6 +212,7 @@
 				3C6A8E88242D28DD00C4E1E2 /* CityWeather.swift */,
 				2085F082243CEFA600FD3A2B /* DailyWeather.swift */,
 				2085F084243CF00600FD3A2B /* Weather.swift */,
+				C0EDF961244A426B0039DD6E /* ItemType.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -225,7 +236,6 @@
 				2089864424213B9400B94BE2 /* Search */,
 				2089864324213B8A00B94BE2 /* Home */,
 				20ED3486241180A100827E8A /* SceneDelegate.swift */,
-				20ED3488241180A100827E8A /* ViewController.swift */,
 				3CBD1F992424016C005349A3 /* LocationListViewController.swift */,
 			);
 			path = Controller;
@@ -234,6 +244,7 @@
 		20ED34A92411811500827E8A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C057FAF12448C980009D97A2 /* city.list.json */,
 				20ED348D241180A200827E8A /* Assets.xcassets */,
 			);
 			path = Resources;
@@ -258,6 +269,7 @@
 			packageProductDependencies = (
 				1B62C33A2436397400F6514C /* SnapKit */,
 				20D049FB24364859004AB68F /* Alamofire */,
+				C0EDF94C244927970039DD6E /* AlamofireImage */,
 			);
 			productName = mvcSample;
 			productReference = 20ED3481241180A100827E8A /* mvcSample.app */;
@@ -312,6 +324,7 @@
 			packageReferences = (
 				1B62C3392436397400F6514C /* XCRemoteSwiftPackageReference "SnapKit" */,
 				20D049FA24364859004AB68F /* XCRemoteSwiftPackageReference "Alamofire" */,
+				C0EDF94B244927970039DD6E /* XCRemoteSwiftPackageReference "AlamofireImage" */,
 			);
 			productRefGroup = 20ED3482241180A100827E8A /* Products */;
 			projectDirPath = "";
@@ -329,6 +342,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				20ED3491241180A200827E8A /* LaunchScreen.storyboard in Resources */,
+				C057FAF22448C980009D97A2 /* city.list.json in Resources */,
 				20ED348E241180A200827E8A /* Assets.xcassets in Resources */,
 				20ED348C241180A100827E8A /* Main.storyboard in Resources */,
 			);
@@ -360,7 +374,9 @@
 				20ED3485241180A100827E8A /* AppDelegate.swift in Sources */,
 				20ED3487241180A100827E8A /* SceneDelegate.swift in Sources */,
 				3CBD1F9824240112005349A3 /* LocationCollectionViewCell.swift in Sources */,
+				C0EDF94A244910E00039DD6E /* WeatherImage.swift in Sources */,
 				3C6A8E89242D28DD00C4E1E2 /* CityWeather.swift in Sources */,
+				C0EDF962244A426B0039DD6E /* ItemType.swift in Sources */,
 				3CBD1F9A2424016C005349A3 /* LocationListViewController.swift in Sources */,
 				20D049FF243657ED004AB68F /* WeatherDetailsViewController.swift in Sources */,
 				2085F085243CF00600FD3A2B /* Weather.swift in Sources */,
@@ -651,6 +667,14 @@
 				minimumVersion = 5.0.5;
 			};
 		};
+		C0EDF94B244927970039DD6E /* XCRemoteSwiftPackageReference "AlamofireImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/AlamofireImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.1.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -663,6 +687,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 20D049FA24364859004AB68F /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		C0EDF94C244927970039DD6E /* AlamofireImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C0EDF94B244927970039DD6E /* XCRemoteSwiftPackageReference "AlamofireImage" */;
+			productName = AlamofireImage;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

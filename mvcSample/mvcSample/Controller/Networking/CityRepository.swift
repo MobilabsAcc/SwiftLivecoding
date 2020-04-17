@@ -9,31 +9,25 @@
 import Foundation
 
 struct CityRepository {
-    static let address = "https://raw.githubusercontent.com/lutangar/cities.json/master/cities.json"
-
     static func getAllCities(_ completion: @escaping (([City]) -> Void)) {
-        if let citiesURL = URL(string: address) {
-            let datatask = URLSession.shared.dataTask(with: citiesURL) { data, response, error in
-                guard let data = data else {
-                    DispatchQueue.main.async {
-                        completion([])
-                    }
-                    return
-                }
-
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            if let path = Bundle.main.path(forResource: "city.list", ofType: "json") {
                 do {
+                    let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
                     let decoder = JSONDecoder()
                     let cities: [City] = try decoder.decode([City].self, from: data)
+                    
                     DispatchQueue.main.async {
                         completion(cities)
+                        
                     }
-                } catch {
+                }catch {
                     DispatchQueue.main.async {
                         completion([])
                     }
                 }
             }
-            datatask.resume()
         }
     }
 }

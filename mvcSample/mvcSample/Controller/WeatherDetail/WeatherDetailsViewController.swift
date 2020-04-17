@@ -23,7 +23,6 @@ final class WeatherDetailsViewController: UIViewController {
         super.viewDidLoad()
 
         setupView()
-        fetchCurrentWeather()
         fetchForecast()
     }
 
@@ -34,17 +33,6 @@ final class WeatherDetailsViewController: UIViewController {
         timeDateLabel.text = dateFormatter.string(from: date)
 
         weeklyWeatherCollectionView.dataSource = weeklyDataSource
-    }
-
-    private func fetchCurrentWeather() {
-        guard let selectedCityName = selectedCityName else { return }
-        WeatherRepository.getCurrentWeather(selectedCityName) { [weak self] (weather, error) in
-            guard let weather = weather else { return }
-
-            self?.cityLabel.text = weather.name
-            self?.recentTemperatureLabel.text = String(format: "%.0f°", weather.main.temp)
-            self?.weatherDescriptionlabel.text = weather.weather.first?.weatherDescription
-        }
     }
 
     private func fetchForecast() {
@@ -64,6 +52,12 @@ final class WeatherDetailsViewController: UIViewController {
                 }
                 return false
             }
+            
+            self?.cityLabel.text = selectedCityName
+            self?.recentTemperatureLabel.text = String(format: "%.0f°", dailyForecast[0].main.temp)
+            self?.weatherDescriptionlabel.text = dailyForecast[0].weather.first?.weatherDescription
+            
+            
             self?.weeklyDataSource.days = dailyForecast
             self?.weeklyWeatherCollectionView.reloadData()
         }

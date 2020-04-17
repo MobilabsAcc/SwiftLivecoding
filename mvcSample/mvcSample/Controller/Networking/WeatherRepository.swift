@@ -67,7 +67,6 @@ struct WeatherRepository {
     private static func execureRequest<T: Codable>(_ request: WeatherAPI,
                                                    completion: @escaping ((T?, Error?) -> Void)) {
         guard let requestUrl = request.url else { return }
-
         AF
             .request(requestUrl,
                      method: request.method,
@@ -82,6 +81,7 @@ struct WeatherRepository {
                         completion(responseObject, nil)
                     }
                 } catch {
+                    print(error)
                     DispatchQueue.main.async {
                         completion(nil, error)
                     }

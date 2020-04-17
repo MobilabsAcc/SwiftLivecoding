@@ -8,7 +8,12 @@
 
 import Foundation
 
-struct City: Codable {
+struct City: Codable, Hashable {
+    let id: Int
     let country: String
     let name: String
+}
+
+struct CityList: Codable {
+    let cities: Set<City>
 }

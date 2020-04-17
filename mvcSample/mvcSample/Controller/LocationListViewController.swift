@@ -18,26 +18,20 @@ class LocationListViewController: UIViewController {
         }
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         collectionView.register(LocationCollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         collectionView.reloadData()
-
         // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        
+//        let rect = CGRect(x: 0, y: collectionView.contentSize.height, width: 30, height: 1)
+//        collectionView.scrollRectToVisible(rect, animated: true)
+//    }
 }
 
 extension LocationListViewController: UICollectionViewDataSource {
@@ -49,13 +43,9 @@ extension LocationListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let city = cityList[indexPath.row]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! LocationCollectionViewCell
-        
-        cell.cityName.text = city.cityName
-        cell.temperarture.text = "\(city.temperature)"
-        
+        cell.data = city
         return cell
     }
-    
 }
 
 extension LocationListViewController: UICollectionViewDelegate {
@@ -66,14 +56,12 @@ extension LocationListViewController: UICollectionViewDelegate {
             .instantiateViewController(identifier: "WeatherDetailsViewController") as! WeatherDetailsViewController
 
         detailsVC.selectedCityName = cityList[indexPath.row].cityName
-
         navigationController?.pushViewController(detailsVC, animated: true)
     }
 }
 
 
 extension LocationListViewController: UICollectionViewDelegateFlowLayout {
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = (view.frame.size.width/2) - 30
         let height = CGFloat(150)

@@ -8,20 +8,15 @@
 
 import Foundation
 
-struct SearchItem: Equatable {
-    enum ItemType {
-        case plain
-        case history
-        case currentLocation
-    }
-
-    let city: String
-    let country: String
-    let alternativeText: String
-    var type: ItemType
-    
-    static func == (lhs: Self, rhs: Self) -> Bool {
-        return lhs.city == rhs.city && lhs.country == rhs.country
-    }
-    
-}
+//struct SearchItem: Equatable, Hashable {
+//
+//    let id: Int
+//    let city: String
+//    let country: String
+//    let alternativeText: String
+//    var type: ItemType
+//
+//    static func == (lhs: Self, rhs: Self) -> Bool {
+//        return lhs.city == rhs.city && lhs.country == rhs.country
+//    }
+//}

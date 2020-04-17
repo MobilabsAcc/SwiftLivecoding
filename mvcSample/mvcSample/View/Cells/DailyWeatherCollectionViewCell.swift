@@ -33,7 +33,6 @@ class DailyWeatherCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-
         containerView.layer.cornerRadius = 16
     }
 }
