@@ -2,86 +2,221 @@
 //  SearchViewController.swift
 //  mvcSample
 //
-//  Created by Apple on 17/03/2020.
+//  Created by Leszek Barszcz on 17/03/2020.
 //  Copyright © 2020 lpb. All rights reserved.
 //
+
 import UIKit
+import CoreLocation
 
 final class SearchViewController: UIViewController {
-    
-    typealias SearchItem = (boldText: String, lightText: String)
-    
-    private let locationCellIdentifier = "locationIdentifier"
-    private var items = [SearchItem(boldText: "Your currnenct location", lightText: ""),
-                         SearchItem(boldText:"Warsaw", lightText: "Poland"),
-                         SearchItem(boldText:"Gdynia", lightText: "Poland"),
-                         SearchItem(boldText:"Milano", lightText: "Italy"),
-                         SearchItem(boldText:"Viena", lightText: "Austria")]
+    private let locationCellIdentifier = "locationCell"
+
+    private var historyItems: [SearchItem] = []
+    private var allItems: [SearchItem] = []
+    private var visibleItems = [SearchItem]()
+
+    private var tapGestureRecogniser: UITapGestureRecognizer!
+    private lazy var locationManager: CLLocationManager = CLLocationManager()
+
     weak var tableView: UITableView!
-    //jezeli widok zostanie odpiety od view kontrolera to stracimy do niego referencje, do table view bedzie podpiety nil
-    
+    var searchBar: UISearchBar!
+
     override func loadView() {
-        super.loadView() // pusty widok inicjalizacja, mamy podstawowa konfiguracje
-        
-        //to robi super view
-        /*
-        self.view = UIView()
-        self.view.backgroundColor = .white
-        self.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-         */
-        
+        super.loadView()
+
         let tableView = UITableView()
+        self.searchBar = UISearchBar()
+        self.tapGestureRecogniser = UITapGestureRecognizer()
         self.view.addSubview(tableView)
+        self.view.addSubview(searchBar)
         self.tableView = tableView
-        
     }
     
+    @objc
+    func hideKeyboard() {
+        view.endEditing(true)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.delegate = self
+        locationManager.startUpdatingLocation()
+        
+        tapGestureRecogniser.addTarget(self, action: #selector(hideKeyboard))
+        searchBar.delegate = self
         tableView.backgroundColor = .clear
         tableView.rowHeight = 62
         tableView.separatorStyle = .none
+        tableView.keyboardDismissMode = .interactive
+
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
         
+        searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+         tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor).isActive = true
         
-        tableView.translatesAutoresizingMaskIntoConstraints = false //nie beda uzywane maski, co sie kryja w loadview
-        //jezeli nie zrobimy tego to system sprobuje sam utworzyc contrainty
-        tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true//tak jak contraint do superview
+        tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+       
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        
+
         tableView.register(LocationTableViewCell.self, forCellReuseIdentifier: locationCellIdentifier)
-        
+
         tableView.dataSource = self
-        
+        tableView.delegate = self
+
         let gradientLayer = CAGradientLayer()
-           gradientLayer.colors = [UIColor(red: 85.0/255.0, green: 157.0/255.0, blue: 1.0, alpha: 1.0).cgColor,
-                                   UIColor(red: 55.0/255.0, green: 140.0/255.0, blue: 1.0, alpha: 1.0).cgColor]
-           gradientLayer.startPoint = CGPoint(x: 0, y: 0)
-           gradientLayer.endPoint = CGPoint(x: 0, y: 1)
-           gradientLayer.frame = view.bounds
-           view.layer.insertSublayer(gradientLayer, at: 0)
+        gradientLayer.colors = [
+            UIColor(red: 85.0/255.0, green: 157.0/255.0, blue: 1.0, alpha: 1.0).cgColor,
+            UIColor(red: 55.0/255.0, green: 140.0/255.0, blue: 1.0, alpha: 1.0).cgColor
+        ]
+        gradientLayer.startPoint = CGPoint(x: 0, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 0, y: 1)
+        gradientLayer.frame = view.bounds
+        view.layer.insertSublayer(gradientLayer, at: 0)
+
+        CityRepository.getAllCities { [weak self] cities in
+            self?.allItems = cities.map { city in
+                return SearchItem(city: city.name, country: city.country, alternativeText: "", type: .plain)
+            }
+            self?.visibleItems = self?.allItems ?? []
+            self?.tableView.reloadData()
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+         
+        let decoder = JSONDecoder()
+        
+        let citiList = historyItems.map{ CityObject(title: $0.city, dateAdded: Date()) }
+        let encoder = JSONEncoder()
+        do {
+            var listObject: CityList
+
+            if let previousListData = UserDefaults.standard.data(forKey: "CityList") {
+                let previousCityList = try decoder.decode(CityList.self, from: previousListData)
+                listObject = CityList(cities: previousCityList.cities + citiList)
+            } else {
+                listObject = CityList(cities: citiList)
+            }
+            var notDuplicatedData = [CityObject]()
+            for i in listObject.cities {
+                if !notDuplicatedData.contains(where: { (city) -> Bool in
+                    return city.title == i.title
+                }) {
+                    notDuplicatedData.append(i)
+                }
+            }
+            let newListObject = CityList(cities: notDuplicatedData)
+            let data = try encoder.encode(newListObject)
+            
+            UserDefaults.standard.set(data, forKey: "CityList")
+        } catch {
+            print(error)
+        }
+        
     }
 }
 
-//kazda klase w naszym kodzie mozemy rozszerzyc
 extension SearchViewController: UITableViewDataSource {
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count
+        return visibleItems.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: locationCellIdentifier, for: indexPath) as? LocationTableViewCell else { return UITableViewCell() }
+
+        cell.model = visibleItems[indexPath.row]
+        return cell
+    }
+}
+
+extension SearchViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        var tappedItem = visibleItems[indexPath.row]
+        
+        if !historyItems.contains(where: { item -> Bool in
+            return item == tappedItem
+        }) {
+            tappedItem.type = .history
+            historyItems.append(tappedItem)
+        }
+
+        openDetails(for: tappedItem)
+    }
+
+    private func openDetails(for selection: SearchItem) {
+        let detailsVC = UIStoryboard(name: "Main",
+                                     bundle: nil)
+            .instantiateViewController(identifier: "WeatherDetailsViewController") as! WeatherDetailsViewController
+
+        detailsVC.selectedCityName = selection.city
+
+        navigationController?.pushViewController(detailsVC, animated: true)
+    }
+}
+
+struct CityList: Codable {
+    let cities: [CityObject]
+}
+
+struct CityObject: Codable  {
+    let title: String
+    let dateAdded: Date
+}
+
+extension SearchViewController: UISearchBarDelegate {
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //let cell = UITableViewCell()//content view jest charakterystyczny dla klas dziedzicqacy z klas cell
-        if indexPath.row == 0 {
-            LocationTableViewCell.hasBeenCreated = false
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            visibleItems = historyItems
+            hideKeyboard()
+        } else {
+            visibleItems = allItems.filter({ $0.city.contains(searchText) })
         }
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: locationCellIdentifier, for: indexPath) as? LocationTableViewCell else { return UITableViewCell() }
-       
-//        cell.textLabel?.text = items[indexPath.row]
-        cell.model = items[indexPath.row]
-        
-        
-        return cell
+        tableView.reloadData()
+    }
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        visibleItems = historyItems
+        tableView.reloadData()
+    }
+}
+
+extension SearchViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+//
+//        if status == .authorizedWhenInUse {
+//            historyItems.insert(SearchItem(city: "", country: "", alternativeText: "Your current location", type: .currentLocation), at: 0)
+//            tableView.reloadData()
+//        }
+    }
+    
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print(locations)
+//        if items.count > 0,
+//            let location = locations.first {
+//            let newItem = SearchItem(city: "",
+//                                     country: "",
+//                                     alternativeText: "\(location.coordinate.latitude) \(location.coordinate.longitude)",
+//                type: .currentLocation)
+//
+//            items.remove(at: 0)
+//            items.insert(newItem, at: 0)
+//            tableView.reloadData()
+//        }
     }
 }
