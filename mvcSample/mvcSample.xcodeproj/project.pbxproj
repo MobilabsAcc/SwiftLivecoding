@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		1B62C33B2436397400F6514C /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1B62C33A2436397400F6514C /* SnapKit */; };
+		2011133A2451E532002A31F1 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 201113382451E531002A31F1 /* RealmSwift.framework */; };
+		201113402451E63C002A31F1 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2011133D2451E54E002A31F1 /* Realm.framework */; };
+		201113442451E6A0002A31F1 /* PersistancerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 201113432451E6A0002A31F1 /* PersistancerController.swift */; };
+		201113452451E859002A31F1 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 201113392451E532002A31F1 /* Realm.framework */; };
+		201113462451E859002A31F1 /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 201113392451E532002A31F1 /* Realm.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		201113482451E85B002A31F1 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2011133E2451E54F002A31F1 /* RealmSwift.framework */; };
+		201113492451E85B002A31F1 /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2011133E2451E54F002A31F1 /* RealmSwift.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		2085F07A243CE1EB00FD3A2B /* DailyWeatherCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2085F079243CE1EB00FD3A2B /* DailyWeatherCollectionViewCell.swift */; };
 		2085F07D243CE41300FD3A2B /* ReusableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2085F07C243CE41300FD3A2B /* ReusableCell.swift */; };
 		2085F07F243CE55300FD3A2B /* WeeklyWeatherCollectionDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2085F07E243CE55300FD3A2B /* WeeklyWeatherCollectionDataSource.swift */; };
@@ -44,7 +51,27 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		201113472451E859002A31F1 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				201113492451E85B002A31F1 /* RealmSwift.framework in Embed Frameworks */,
+				201113462451E859002A31F1 /* Realm.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		201113382451E531002A31F1 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = "../../../Downloads/realm-swift-4.4.1/ios/swift-11.4.1/RealmSwift.framework"; sourceTree = "<group>"; };
+		201113392451E532002A31F1 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = "../../../Downloads/realm-swift-4.4.1/ios/swift-11.4.1/Realm.framework"; sourceTree = "<group>"; };
+		2011133D2451E54E002A31F1 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Realm.framework; sourceTree = "<group>"; };
+		2011133E2451E54F002A31F1 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = "<group>"; };
+		201113432451E6A0002A31F1 /* PersistancerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistancerController.swift; sourceTree = "<group>"; };
 		2085F079243CE1EB00FD3A2B /* DailyWeatherCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyWeatherCollectionViewCell.swift; sourceTree = "<group>"; };
 		2085F07C243CE41300FD3A2B /* ReusableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableCell.swift; sourceTree = "<group>"; };
 		2085F07E243CE55300FD3A2B /* WeeklyWeatherCollectionDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyWeatherCollectionDataSource.swift; sourceTree = "<group>"; };
@@ -79,8 +106,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				201113452451E859002A31F1 /* Realm.framework in Frameworks */,
 				1B62C33B2436397400F6514C /* SnapKit in Frameworks */,
+				201113482451E85B002A31F1 /* RealmSwift.framework in Frameworks */,
 				20D049FC24364859004AB68F /* Alamofire in Frameworks */,
+				2011133A2451E532002A31F1 /* RealmSwift.framework in Frameworks */,
+				201113402451E63C002A31F1 /* Realm.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,6 +125,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2011133C2451E544002A31F1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2011133D2451E54E002A31F1 /* Realm.framework */,
+				2011133E2451E54F002A31F1 /* RealmSwift.framework */,
+			);
+			path = Frameworks;
+			sourceTree = "<group>";
+		};
+		201113422451E68C002A31F1 /* Persistance */ = {
+			isa = PBXGroup;
+			children = (
+				201113432451E6A0002A31F1 /* PersistancerController.swift */,
+			);
+			path = Persistance;
+			sourceTree = "<group>";
+		};
 		2085F07B243CE3FB00FD3A2B /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -156,8 +204,11 @@
 		20ED3478241180A100827E8A = {
 			isa = PBXGroup;
 			children = (
+				2011133C2451E544002A31F1 /* Frameworks */,
 				20ED3483241180A100827E8A /* mvcSample */,
 				20ED349A241180A200827E8A /* mvcSampleTests */,
+				201113392451E532002A31F1 /* Realm.framework */,
+				201113382451E531002A31F1 /* RealmSwift.framework */,
 				20ED3482241180A100827E8A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -220,6 +271,7 @@
 		20ED34A82411810600827E8A /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				201113422451E68C002A31F1 /* Persistance */,
 				20D049FD243657D7004AB68F /* WeatherDetail */,
 				20972E8B242A7D6200AFB707 /* Networking */,
 				2089864424213B9400B94BE2 /* Search */,
@@ -249,6 +301,7 @@
 				20ED347D241180A100827E8A /* Sources */,
 				20ED347E241180A100827E8A /* Frameworks */,
 				20ED347F241180A100827E8A /* Resources */,
+				201113472451E859002A31F1 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -358,6 +411,7 @@
 				20972E8D242A7D7F00AFB707 /* CityRepository.swift in Sources */,
 				2085F083243CEFA600FD3A2B /* DailyWeather.swift in Sources */,
 				20ED3485241180A100827E8A /* AppDelegate.swift in Sources */,
+				201113442451E6A0002A31F1 /* PersistancerController.swift in Sources */,
 				20ED3487241180A100827E8A /* SceneDelegate.swift in Sources */,
 				3CBD1F9824240112005349A3 /* LocationCollectionViewCell.swift in Sources */,
 				3C6A8E89242D28DD00C4E1E2 /* CityWeather.swift in Sources */,
@@ -528,6 +582,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q3GB8QG3PH;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
+				);
 				INFOPLIST_FILE = mvcSample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -546,6 +604,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = Q3GB8QG3PH;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
+				);
 				INFOPLIST_FILE = mvcSample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

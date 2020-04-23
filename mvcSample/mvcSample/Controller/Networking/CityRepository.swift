@@ -12,6 +12,11 @@ struct CityRepository {
     static let address = "https://raw.githubusercontent.com/lutangar/cities.json/master/cities.json"
 
     static func getAllCities(_ completion: @escaping (([City]) -> Void)) {
+        if let cities = PersistanceController.shared.fetch(City.self) {
+            completion(cities)
+            return
+        }
+
         if let citiesURL = URL(string: address) {
             let datatask = URLSession.shared.dataTask(with: citiesURL) { data, response, error in
                 guard let data = data else {
@@ -25,6 +30,7 @@ struct CityRepository {
                     let decoder = JSONDecoder()
                     let cities: [City] = try decoder.decode([City].self, from: data)
                     DispatchQueue.main.async {
+                        PersistanceController.shared.append(cities)
                         completion(cities)
                     }
                 } catch {

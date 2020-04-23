@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import RealmSwift
 
-struct City: Codable {
-    let country: String
-    let name: String
+class City: Object, Codable {
+    @objc dynamic var country: String
+    @objc dynamic var name: String
 }
