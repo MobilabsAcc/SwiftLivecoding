@@ -191,10 +191,12 @@ extension SearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.isEmpty && !historyItems.isEmpty {
             visibleItems = Array(historyItems)
+            itemType = .history
             hideKeyboard()
             tableView.reloadData()
         } else {
             visibleItems = allItems.filter({ $0.name.contains(searchText) })
+            itemType = .plain
             tableView.reloadData()
         }
        

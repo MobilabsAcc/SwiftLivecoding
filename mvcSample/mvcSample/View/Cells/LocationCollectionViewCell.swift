@@ -68,7 +68,7 @@ class LocationCollectionViewCell: UICollectionViewCell {
             cityName.text = data.cityName
             descriptionLbl.text = data.description
             temperarture.text = String(format: "%.0f°", data.temperature)
-            let color = self.color
+            let color = getColor(for: idWeather)
             gradientLayer.colors = [color[0].cgColor, color[1].cgColor]
             image = data.image
             weatherImage.image = image
@@ -142,8 +142,7 @@ class LocationCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    lazy var color: [UIColor] = {
-        let colorTable: [UIColor]
+    func getColor(for idWeather: String) -> [UIColor]{
 
         if self.idWeather.contains("n"){
             return ColorKind.night.color
@@ -158,7 +157,7 @@ class LocationCollectionViewCell: UICollectionViewCell {
         default:
             return ColorKind.blue.color
         }
-    }()
+    }
     
     private func setUpViews(){
         setCellShadow()

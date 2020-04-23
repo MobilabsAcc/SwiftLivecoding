@@ -109,7 +109,6 @@ private extension ViewController {
                     cityList.cities.forEach{ city in
                         group.enter()
                         WeatherRepository.get5DaysForecast(for: city.name) { (forecast, error) in
-                            group.leave()
                             guard let forecast = forecast else { return }
                             
                             let dayInSeconds = 60 * 60 * 24
@@ -125,6 +124,7 @@ private extension ViewController {
                             let cityWeather = CityWeather(cityName: city.name, temperature: dailyForecast[0].main.temp, description: dailyForecast[0].weather[0].weatherDescription, icon: dailyForecast[0].weather[0].icon)
                             
                             weatherList.append(cityWeather)
+                            group.leave()
                         }
                         group.wait()
                         if let lastWeather = weatherList.last {
@@ -143,9 +143,7 @@ private extension ViewController {
                     }
                 }
             } catch {
-                
                 print(error)
-                
             }
         }
     }

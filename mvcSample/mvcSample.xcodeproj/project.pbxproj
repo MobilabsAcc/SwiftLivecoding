@@ -77,6 +77,7 @@
 		3CBD1F9724240112005349A3 /* LocationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCollectionViewCell.swift; sourceTree = "<group>"; };
 		3CBD1F992424016C005349A3 /* LocationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationListViewController.swift; sourceTree = "<group>"; };
 		C057FAF12448C980009D97A2 /* city.list.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = city.list.json; sourceTree = "<group>"; };
+		C0A265282451F69400C4858F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		C0EDF949244910DF0039DD6E /* WeatherImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherImage.swift; sourceTree = "<group>"; };
 		C0EDF961244A426B0039DD6E /* ItemType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -169,6 +170,7 @@
 				20ED3483241180A100827E8A /* mvcSample */,
 				20ED349A241180A200827E8A /* mvcSampleTests */,
 				20ED3482241180A100827E8A /* Products */,
+				C0A265272451F69300C4858F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -248,6 +250,14 @@
 				20ED348D241180A200827E8A /* Assets.xcassets */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		C0A265272451F69300C4858F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C0A265282451F69400C4858F /* CoreData.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
