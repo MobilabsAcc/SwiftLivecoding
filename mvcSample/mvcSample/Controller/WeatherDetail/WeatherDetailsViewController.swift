@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import CoreData
-
 
 final class WeatherDetailsViewController: UIViewController {
     @IBOutlet private weak var timeDateLabel: UILabel!
@@ -16,8 +14,7 @@ final class WeatherDetailsViewController: UIViewController {
     @IBOutlet private weak var recentTemperatureLabel: UILabel!
     @IBOutlet private weak var weatherDescriptionlabel: UILabel!
     @IBOutlet weak var weeklyWeatherCollectionView: UICollectionView!
-    
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+
     private let weeklyDataSource = WeeklyWeatherCollectionDataSource()
 
     var selectedCityName: String?
@@ -54,6 +51,7 @@ final class WeatherDetailsViewController: UIViewController {
         guard let selectedCityName = selectedCityName else {
             return
         }
+
         WeatherRepository.get5DaysForecast(for: selectedCityName) { [weak self] (forecast, error) in
             guard let forecast = forecast else { return }
 
@@ -68,16 +66,6 @@ final class WeatherDetailsViewController: UIViewController {
             }
             self?.weeklyDataSource.days = dailyForecast
             self?.weeklyWeatherCollectionView.reloadData()
-            return
         }
-        let request: NSFetchRequest<WeatherList> = WeatherList.fetchRequest()
-        var preformatedList = [WeatherList]()
-        do {
-            preformatedList = try context.fetch(request)
-        } catch {
-            
-        }
-        
-        
     }
 }
