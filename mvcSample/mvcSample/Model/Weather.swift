@@ -35,13 +35,13 @@ struct Coord: Codable {
 // MARK: - Main
 struct Main: Codable {
     let temp: Double
-    let pressure, humidity: Int
-    let tempMin, tempMax: Double
+    //let pressure, humidity: Int
+    //let tempMin, tempMax: Double
 
     enum CodingKeys: String, CodingKey {
-        case temp, pressure, humidity
-        case tempMin = "temp_min"
-        case tempMax = "temp_max"
+        case temp//, pressure, humidity
+        //case tempMin = "temp_min"
+        //        case tempMax = "temp_max"
     }
 }
 

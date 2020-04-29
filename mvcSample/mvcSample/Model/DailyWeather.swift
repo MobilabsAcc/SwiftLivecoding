@@ -21,35 +21,36 @@ struct DailyWeather: Codable {
 struct List: Codable {
     let dt: Int
     let main: WeatherParams
-    let weather: [WeatherDescription]
-    let clouds: Clouds
-    let wind: Wind
+    //let weather: [WeatherDescription]
+    //let clouds: Clouds
+    //let wind: Wind
 //    let snow: Snow
-    let sys: Sys
-    let dtTxt: String
+    //let sys: Sys
+    //let dtTxt: String
 
     enum CodingKeys: String, CodingKey {
-        case dt, main, weather, clouds, wind, sys
-        case dtTxt = "dt_txt"
+        case dt, main//, weather, clouds, wind, sys
+        //case dtTxt = "dt_txt"
     }
 }
 
 // MARK: - MainClass
 struct WeatherParams: Codable {
-    let temp, tempMin, tempMax, pressure: Double
-    let seaLevel, grndLevel: Double
-    let humidity: Int
-    let tempKf: Double
+    let temp: Double
+    //, tempMin, tempMax, pressure: Double
+    //let seaLevel, grndLevel: Double
+    //let humidity: Int
+    //let tempKf: Double
 
     enum CodingKeys: String, CodingKey {
         case temp
-        case tempMin = "temp_min"
-        case tempMax = "temp_max"
-        case pressure
-        case seaLevel = "sea_level"
-        case grndLevel = "grnd_level"
-        case humidity
-        case tempKf = "temp_kf"
+        //case tempMin = "temp_min"
+        //case tempMax = "temp_max"
+        //case pressure
+        //case seaLevel = "sea_level"
+        //case grndLevel = "grnd_level"
+        //case humidity
+        //case tempKf = "temp_kf"
     }
 }
 

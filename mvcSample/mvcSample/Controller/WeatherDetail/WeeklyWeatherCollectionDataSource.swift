@@ -22,7 +22,6 @@ class WeeklyWeatherCollectionDataSource: NSObject, UICollectionViewDataSource {
         }
 
         cell.model = days[indexPath.row]
-
         return cell
     }
 }
