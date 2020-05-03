@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  DashboardViewController.swift
 //  mvcSample
 //
 //  Created by Leszek Barszcz on 05/03/2020.
@@ -8,24 +8,21 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class DashboardViewController: UIViewController {
     
     @IBOutlet weak var bottomBar: UIView!
     
     var listViewController: UIViewController?
-    
-    override func loadView() {
-        super.loadView()
-        
-        /*
-         Here view is being initiated from storyboards, xibs
-         */
-    }
+    let viewModel: DashboardViewModel = DashboardViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view. Usually we set data here, no final sizes are set here
         
+        viewModel.delegate = self
+        viewModel.cityListViewModels.bind() { cityListViewModels in
+            self.showCityList(cityListViewModels)
+        }
+
         let gradientLayer = CAGradientLayer()
         gradientLayer.colors = [UIColor(red: 85.0/255.0, green: 157.0/255.0, blue: 1.0, alpha: 1.0).cgColor, UIColor.white.cgColor]
         gradientLayer.startPoint = CGPoint(x: 0, y: 0)
@@ -62,42 +59,10 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        //        UserDefaults.standard.set("Gdansk", forKey: "selectedCity")
-        
-        if let cityListData = UserDefaults.standard.data(forKey: "CityList") {
-            
-            let decoder = JSONDecoder()
-            do {
-                let cityList = try decoder.decode(CityList.self, from: cityListData)
-                
-                DispatchQueue.global().async {
-                    var weatherList = [CityWeather]()
-                    let group = DispatchGroup()
-                    
-                    cityList.cities.forEach{ city in
-                        group.enter()
-                        WeatherRepository.getCurrentWeather(city.title) { weather, error in
-                            group.leave()
-                            if let weather = weather {
-                                let cityWeather = CityWeather(cityName: city.title, temperature: weather.main.temp)
-                                weatherList.append(cityWeather)
-                            }
-                        }
-                    }
-                    
-                    group.wait()
-                    DispatchQueue.main.async {
-                        self.showCityList(weatherList)
-                    }
-                }
-            } catch {
-                
-            }
-        }
+        viewModel.loadDataWithComobine()
     }
     
-    func showCityList(_ weathers: [CityWeather]) {
+    func showCityList(_ weathers: [LocationWeatherViewModel]) {
         
         if let cityListVC = listViewController as? LocationListViewController {
             cityListVC.cityList = weathers
@@ -193,6 +158,11 @@ class ViewController: UIViewController {
         //        We present modaly detailsViewController from current view controller
         self.present(detailsViewController, animated: true, completion: nil)
     }
-    
 }
 
+extension DashboardViewController: DashboardViewModelDelegate {
+    
+    func reloadData(_ data: [LocationWeatherViewModel]) {
+//        showCityList(data)
+    }
+}

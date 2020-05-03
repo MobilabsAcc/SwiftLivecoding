@@ -94,7 +94,7 @@ final class SearchViewController: UIViewController {
          
         let decoder = JSONDecoder()
         
-        let citiList = historyItems.map{ CityObject(title: $0.city, dateAdded: Date()) }
+        let citiList = historyItems.map{ CityObject(title: $0.city)}//, dateAdded: Date()) }
         let encoder = JSONEncoder()
         do {
             var listObject: CityList
@@ -157,9 +157,13 @@ struct CityList: Codable {
     let cities: [CityObject]
 }
 
-struct CityObject: Codable  {
+struct CityObject: Codable, Hashable  {
     let title: String
-    let dateAdded: Date
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(title)
+    }
+    
 }
 
 extension SearchViewController: UISearchBarDelegate {
@@ -197,7 +201,6 @@ extension SearchViewController: CLLocationManagerDelegate {
     
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print(locations)
 //        if items.count > 0,
 //            let location = locations.first {
 //            let newItem = SearchItem(city: "",

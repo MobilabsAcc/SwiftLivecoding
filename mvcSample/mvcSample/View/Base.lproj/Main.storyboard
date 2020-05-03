@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="U4g-fQ-kyp">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -11,16 +10,16 @@
         <!--Dashboard-->
         <scene sceneID="bHw-kc-69T">
             <objects>
-                <viewController title="Dashboard" id="Jas-hJ-Lb3" customClass="ViewController" customModule="mvcSample" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Dashboard" id="Jas-hJ-Lb3" customClass="DashboardViewController" customModule="mvcSample" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="q0z-LQ-Zfb">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sun" translatesAutoresizingMaskIntoConstraints="NO" id="KIp-iG-oJq">
-                                <rect key="frame" x="173" y="0.0" width="241" height="185"/>
+                                <rect key="frame" x="359" y="0.0" width="241" height="185"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EJI-Eb-bjQ">
-                                <rect key="frame" x="112" y="248" width="190.5" height="115"/>
+                                <rect key="frame" x="205" y="204" width="190.5" height="110.5"/>
                                 <attributedString key="attributedText">
                                     <fragment>
                                         <string key="content">To add your
@@ -48,13 +47,13 @@ first location
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="girl" translatesAutoresizingMaskIntoConstraints="NO" id="arG-jU-Whf">
-                                <rect key="frame" x="115" y="407" width="299" height="413"/>
+                                <rect key="frame" x="455.5" y="358.5" width="144.5" height="199.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="arG-jU-Whf" secondAttribute="height" multiplier="299:413" id="SUX-OX-REs"/>
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SwI-TT-mkw">
-                                <rect key="frame" x="0.0" y="696" width="414" height="200"/>
+                                <rect key="frame" x="0.0" y="400" width="600" height="200"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kJK-EA-kUo" customClass="SwitchButton" customModule="mvcSample" customModuleProvider="target">
                                         <rect key="frame" x="48" y="118" width="53" height="34"/>
@@ -66,7 +65,7 @@ first location
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HHJ-hB-Jcc">
-                                        <rect key="frame" x="360" y="114.5" width="30" height="41"/>
+                                        <rect key="frame" x="546" y="114.5" width="30" height="41"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="24"/>
                                         <state key="normal" title="+">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -115,11 +114,11 @@ first location
             <objects>
                 <viewController storyboardIdentifier="LocationListViewController" id="kq7-Du-bSF" customClass="LocationListViewController" customModule="mvcSample" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="CBe-dh-OcZ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="5mB-tT-ozi">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="g4m-Z4-dLw">
                                     <size key="itemSize" width="150" height="150"/>
@@ -156,23 +155,23 @@ first location
             <objects>
                 <viewController storyboardIdentifier="WeatherDetailsViewController" id="PlW-vU-VTx" customClass="WeatherDetailsViewController" customModule="mvcSample" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="S6h-ud-c3h">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView verifyAmbiguity="ignoreSizes" opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="VFY-2a-iGo">
-                                <rect key="frame" x="0.0" y="44" width="414" height="597.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="578.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ccV-h1-631">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="156"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="156"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="16:52 March 6th" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ed0-Ey-EvV">
-                                                <rect key="frame" x="20" y="56" width="374" height="19.5"/>
+                                                <rect key="frame" x="20" y="56" width="560" height="19.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Warsaw, Poland" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ndP-no-H4i">
-                                                <rect key="frame" x="20" y="83.5" width="374" height="38.5"/>
+                                                <rect key="frame" x="20" y="83.5" width="560" height="38.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -190,10 +189,10 @@ first location
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="73L-hY-re7">
-                                        <rect key="frame" x="0.0" y="156" width="414" height="136"/>
+                                        <rect key="frame" x="0.0" y="156" width="600" height="136"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11°" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZUv-TR-ZUq">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="136"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="600" height="136"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="136" id="X6Y-cw-BsQ"/>
                                                 </constraints>
@@ -211,10 +210,10 @@ first location
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sge-1c-ohu">
-                                        <rect key="frame" x="0.0" y="292" width="414" height="38.5"/>
+                                        <rect key="frame" x="0.0" y="292" width="600" height="19.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Partly cloud currently. The high will be 11°. Showers tonight with a low of 5°." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="piX-fE-91L">
-                                                <rect key="frame" x="20" y="0.0" width="374" height="38.5"/>
+                                                <rect key="frame" x="20" y="0.0" width="560" height="19.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -229,10 +228,10 @@ first location
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Prk-wP-eWb">
-                                        <rect key="frame" x="0.0" y="330.5" width="414" height="267"/>
+                                        <rect key="frame" x="0.0" y="311.5" width="600" height="267"/>
                                         <subviews>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Cul-LS-SBP">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="267"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="600" height="267"/>
                                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="267" id="qjt-3t-4fj"/>

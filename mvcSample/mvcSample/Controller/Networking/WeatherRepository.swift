@@ -8,6 +8,7 @@
 
 import Foundation
 import Alamofire
+import Combine
 
 enum WeatherAPI {
     case weatherForCity(String)
@@ -59,6 +60,10 @@ struct WeatherRepository {
     static func getCurrentWeather(_ cityName: String, completion: @escaping ((Weather?, Error?) -> Void)) {
         execureRequest(.weatherForCity(cityName), completion: completion)
     }
+    
+    static func getCurrentWeather(_ cityName: String) -> Future<Weather?, ServiceError> {
+        execureRequest(.weatherForCity(cityName))
+    }
 
     static func get5DaysForecast(for cityName: String, completion: @escaping ((DailyWeather?, Error?) -> Void)) {
         execureRequest(.dailyWeather(cityName), completion: completion)
@@ -88,4 +93,34 @@ struct WeatherRepository {
                 }
         }
     }
+    
+    private static func execureRequest<T: Codable>(_ request: WeatherAPI) -> Future<T, ServiceError>  {
+
+        // Future - is a publisher of one event - it emits some value and finishes or emits an error
+        Future { promise in
+            AF.request(request.url!,
+                         method: request.method,
+                         parameters: request.queryParams)
+                .response { response in
+                    guard let data = response.data else {
+                        promise(.failure(ServiceError.noResponseData))
+                        return
+                    }
+                    do {
+                        let decoder = JSONDecoder()
+                        let responseObject: T = try decoder.decode(T.self, from: data)
+                        promise(.success(responseObject))
+                    } catch {
+                        promise(.failure(ServiceError.decoding(error)))
+                    }
+            }
+        }
+        
+    }
+}
+
+enum ServiceError: Error {
+    case missingURL
+    case noResponseData
+    case decoding(Error)
 }

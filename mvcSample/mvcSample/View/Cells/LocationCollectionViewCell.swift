@@ -11,7 +11,7 @@ import SnapKit
 
 class LocationCollectionViewCell: UICollectionViewCell {
    
-    lazy var temperarture: UILabel = {
+    lazy var temperature: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 15)
         return label
@@ -22,10 +22,17 @@ class LocationCollectionViewCell: UICollectionViewCell {
            return label
     }()
     
+    var viewModel: LocationWeatherViewModel? {
+        didSet{
+            temperature.text = viewModel?.temperature
+            cityName.text = viewModel?.cityName
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.backgroundColor = .red
-        addSubview(temperarture)
+        addSubview(temperature)
         addSubview(cityName)
         
         cityName.snp.makeConstraints { maker in

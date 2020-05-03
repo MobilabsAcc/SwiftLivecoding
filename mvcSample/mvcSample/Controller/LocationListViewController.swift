@@ -12,7 +12,7 @@ class LocationListViewController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var cityList: [CityWeather] = [CityWeather]() {
+    var cityList: [LocationWeatherViewModel] = [LocationWeatherViewModel]() {
         didSet {
             collectionView?.reloadData()
         }
@@ -54,15 +54,11 @@ extension LocationListViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let city = cityList[indexPath.row]
+        let vm = cityList[indexPath.row]
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! LocationCollectionViewCell
-        
-        cell.cityName.text = city.cityName
-        cell.temperarture.text = "\(city.temperature)"
-        
+        cell.viewModel = vm
         return cell
     }
-    
 }
 
 extension LocationListViewController: UICollectionViewDelegate {
